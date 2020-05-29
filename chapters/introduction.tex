@@ -1,0 +1,15 @@
+\section{Classification of Regulatory Regions}
+%todo: ampliare questa sezione anche con eventuali riferimenti
+The aim of this work is to test whether a novel deep learning approach, know as multi-task learning, perform better than the current state-of-art machine learning approaches (in particular single task neural networks) in DNA cis-regulatory regions (CRRs) classification. CRRs, such as \emph{enhancers} and \emph{promoters}, are non-coding DNA sections which regulate the transcription of the genes. Identifying these regions across human DNA is a fundamental step to understand the impact of genetic variation on phenotype. The development of new computational and biological technology give to the researchers an impressive amount of new data and therefore the possibility of developing new computational methods for CRRs identification.
+
+Two of the most important type of DNA cis-regulatory regions are promoters and enhancers. Promoters are 100–1000 base pairs (bp) long DNA sequences usually located at the beginning of the transcription initiation site, they defines where the RNA polymerase should start the transcription of a gene. Enhancers are 50 to 1500 bp DNA sequences that, when bound to special proteins (Transcription Factors or TF), augment the transcription of associated gene.
+
+\section{Previous Works}
+With the rise of \emph{next-generation sequences} (NGS) techniques, able to identify various aspects of genomes, we have seen the generation of an incredible amount of biological information. These data are usually collected by specialized consortia, among many we can mention: The ENCODE (Encyclopedia of DNA Elements) Consortium \cite{ENCODE_data}, they are building a list of functional elements in the human genome; Roadmap Epigenomics Program \cite{ROADMAP} with the aim of create an epigenomic atlas for primary cells and tissues in human and finally FANTOM5 Project \cite{FANTOM_data} that is trying to uncover transcriptional regulatory networks based on transcript initiation positions.
+
+This volume of NGS data allowed the development of novel computational methods with particular focus on both unsupervised and supervised machine learning approaches. Very important among the former, motivated by the small set of reliable annotations, are chromHMM \cite{ernst2012chromhmm} and Segway \cite{HoffmanSegway} that use respectively Hidden Markov Models (HMM) and Dynamic Bayesian Network (DBN) to discover chromatin states.
+ 
+%- databse
+%- unsipervised methods for many data and few annotations 
+% ChromHMM, Segway
+%- MTL methods

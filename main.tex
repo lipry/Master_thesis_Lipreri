@@ -1,0 +1,36 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+
+\addbibresource{refs.bib}
+
+\title{Thesis}
+\author{Fabio Lipreri}
+\date{May 2020}
+% TODO: fix first page
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents{}
+
+\chapter{Introduction}
+\input{chapters/introduction}
+
+\chapter{Methods}
+\input{chapters/methods}
+
+\chapter{Dataset}
+\input{chapters/dataset}
+
+\chapter{Results}
+\input{chapters/results}
+
+\chapter{Conclusion}
+\input{chapters/conclusion}
+
+
+\printbibliography
+
+\end{document}
