@@ -12,7 +12,15 @@ In order to train and compare our supervised deep models we built a dataset of e
 The set of cell lines $L$ includes: \emph{A549} a lung carcinoma cell line derived from old Caucasian male, \emph{GM12878} a lymphoblastoid cell line produced from the blood of a female donor with northern and western European ancestry by EBV transformation, \emph{H1} an human embryonic stem cell line, \emph{HEK293} a human embryonic kidney cell line, \emph{HEPG2} a cell line derived from a male patient with liver carcinoma, \emph{K562} an immortalized cell line produced from a female patient with chronic myelogenous leukemia and \emph{MCF7} a mammary gland adenocarcinoma cell line. For every cell lines $\ell \in L$, the set of sequences $S_\ell$ contains the genomics locations of enhancers and promoters. $Y$ contains the labels for \emph{active enhancers} (A-E), \emph{active promoters} (A-P), \emph{inactive enhancers} (I-E), \emph{inactive promoters} (I-P).
 
 %TODO: sistemare con riferimenti per uso media e mediana per l'imputer
-Note that, for every cell lines $\ell \in L$, in vitro experiments are performed for every nucleotides of sequences. Consequently the pure ENCODE data, for every sequence $s \in S_\ell$ and epigenomic feature $f \in F_\ell$ (e.g., POLR2A), are reppresented by a $|s|$-length vectors of real numbers. Those values must be summarized in a single metrics. The most common used metrics are mean, variance and maximum, we choose to use maximum. Moreover we have a very small percentage (less than 1\%) of missing values; thus, we used as substitute the median of the others values.
+Note that, for every cell lines $\ell \in L$, in vitro experiments are
+performed for every nucleotides of sequences. Consequently the pure ENCODE
+data, for every sequence $s \in S_\ell$ and epigenomic feature $f \in
+F_\ell$ (e.g., POLR2A), are reppresented by a $|s|$-length vectors of real
+numbers. Those values must be summarized in a single metrics. The most
+common used metrics are mean, variance and maximum, we choose to use
+maximum. Moreover we have a very small percentage (less than 1\%) of
+missing values; thus, we used as substitute the median of the others
+values.
 
 \section{Feature Selection}
 Explanations of the feature selection methods
