@@ -21,25 +21,59 @@ special proteins (Transcription Factors or TF), augment the transcription
 of associated gene.
 
 \section{Previous Works}
+% TODO: RILEGGERE
+% TODO: scrivere dove spiego supervised neural network single task e dove spiego gli algoritmi multi task learning.
 With the rise of \emph{next-generation sequences} (NGS) techniques, able
 to identify various aspects of genomes, we have seen the generation of an
 incredible amount of biological information. These data are usually
 collected by specialized consortia, among many we can mention: The ENCODE
-(Encyclopedia of DNA Elements) Consortium \cite{ENCODE_data}, they are
-building a list of functional elements in the human genome; Roadmap
-Epigenomics Program \cite{ROADMAP} with the aim of create an epigenomic
-atlas for primary cells and tissues in human and finally FANTOM5 Project
-\cite{FANTOM_data} that is trying to uncover transcriptional regulatory
-networks based on transcript initiation positions.
+(Encyclopedia of DNA Elements) Consortium \cite{ENCODE_data}, with the purpose of building a list of functional elements in the human genome; Roadmap Epigenomics Program \cite{ROADMAP} with the aim of create an epigenomic atlas for primary cells and tissues in human and finally FANTOM5 Project \cite{FANTOM_data} that is trying to uncover transcriptional regulatory networks based on transcript initiation positions.
 
-This volume of NGS data allowed the development of novel computational
+This volume of NGS data has allowed the development of novel computational
 methods with particular focus on both unsupervised and supervised machine
-learning approaches. Very important among the former, motivated by the
-small set of reliable annotations, are chromHMM \cite{ernst2012chromhmm}
+learning approaches, an extensive review of these techniques was written by Li et al. in \cite{LiMLReview}. Motivated by the small set of reliable annotations, the first works used unsupervised methods, among them very important contributions are chromHMM \cite{ernst2012chromhmm}
 and Segway \cite{HoffmanSegway} that use respectively Hidden Markov Models
-(HMM) and Dynamic Bayesian Network (DBN) to discover chromatin states.
- 
-%- databse
-%- unsipervised methods for many data and few annotations 
-% ChromHMM, Segway
-%- MTL methods
+(HMM) and Dynamic Bayesian Network (DBN) to discover chromatin states. Due
+to the low accuracy of the described unsupervised models the researcher focused their attention on using additional experimental features and
+different machine learning approaches. In this contest many supervised
+methods have attempted to predict enhancers regions inside DNA, for
+instance Random Forest \cite{RFECS}, AdaBoost-based model
+\cite{DELTA_adaboost}, multinomial logistic regression with LASSO
+regularization \cite{ChenMultinomialLASSORegression}. The emergence of new
+laboratory methods make possible for FANTOM5 Consortium to identify an
+atlas of transcriptionally active promoters and a set of transcriptionally
+active enhancers. In \cite{DEEP} the potential to distinguish enhancers by
+training a support vector machine with these data is suggested.
+
+The advancement of deep learning has made it possible to capture
+high-level knowledge from data, this new approach has extremely improved
+the state-of-the-art of many field such as speech recognition and computer
+vision \cite{lecun2015deeplearning}. From predicting the impact of
+variations on exon splicing \cite{XiongExon} to predicting proteins
+secondary structure \cite{SecondaryStructure} also bioinformaticians have
+applied deep learning techniques in many ways. In the context of
+cis-regulatory elements classifications deep learning was used with many
+beneficial effects. Deep Feature selection (DFS) was introduced to
+overcome the limitations of previous feature selection models. In fact,
+using a sparse regularized one-to-one linear layer on the input features
+of a deep neural network, it can conveniently select a subset of features
+for multiple classes and it can consider non-linearity via a deep
+structure \cite{LiYifengDFS}. In order to detect the Transcription Factor
+Binding Site (TFBS), Convolutional Neural Networks (CNN) \cite{LecunCNN,
+MartinezCNN}, a powerful deep learning algorithm for modelling labelled
+sequential data, was recently applied in DeepBind \cite{AlipanahiDeepBind}.
+Another step forward in distinguish CRRs was accomplished by Wassermann
+and his group in DECRES \cite{WassermannDECRES}. Basically they achieved
+excellent results using FANTOM promoters and enhancers (that provide the
+largest experimentally defined collection of CRRs) with the ENCODE project
+genome-wide feature data (histone modifications, TF binding, RNA
+transcripts, chromatin accessibility, and chromatin interactions) to
+training supervised feedforward neural networks in order to detect
+regulatory regions.
+
+%- previous works for MTL methods
+In this work we tried to make a step forward in predicting cis-regulatory
+regions, using a new deep learning approach know as Multi-Task Learning
+(MTL). Despite it has little or never been used in bioinformatics,
+especially in distinguish CRRs, A lot of MTL variants has been successfully applied in many
+fields, ranging from natural language processing \cite{CollobertWeston2008} and speech recognition \cite{Deng2013} to computer vision \cite{Girshick2015} and drug discovery \cite{Ramsundar2015}. An extensive overview of multi-task learning in deep neural network was written by Ruder in \cite{Ruder2017}. In Section~\ref{MTLsection} is given a detailed explanation of Hard parameter sharing neural networks, the approach used in this works.

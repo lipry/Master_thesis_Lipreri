@@ -71,6 +71,236 @@ keywords = {ENCODE, dynamic Bayesian network, epigenomics, genome annotation, DN
 location = {Wshington DC, USA},
 series = {BCB’13}
 }
+@article{RFECS,
+author = {Rajagopal, Nisha and Xie, Wei and Li, Yan and Wagner, Uli and Wang, Wei and Stamatoyannopoulos, John and Ernst, Jason and Kellis, Manolis and Ren, Bing},
+year = {2013},
+month = {03},
+pages = {e1002968},
+title = {RFECS: A Random-Forest Based Algorithm for Enhancer Identification from Chromatin State},
+volume = {9},
+journal = {PLoS computational biology},
+doi = {10.1371/journal.pcbi.1002968}
+}
+
+@article{DELTA_adaboost,
+    author = {Lu, Yiming AND Qu, Wubin AND Shan, Guangyu AND Zhang, Chenggang},
+    journal = {PLOS ONE},
+    publisher = {Public Library of Science},
+    title = {DELTA: A Distal Enhancer Locating Tool Based on AdaBoost Algorithm and Shape Features of Chromatin Modifications},
+    year = {2015},
+    month = {06},
+    volume = {10},
+    url = {https://doi.org/10.1371/journal.pone.0130622},
+    pages = {1-20},
+    abstract = {Accurate identification of DNA regulatory elements becomes an urgent need in the post-genomic era. Recent genome-wide chromatin states mapping efforts revealed that DNA elements are associated with characteristic chromatin modification signatures, based on which several approaches have been developed to predict transcriptional enhancers. However, their practical application is limited by incomplete extraction of chromatin features and model inconsistency for predicting enhancers across different cell types. To address these issues, we define a set of non-redundant shape features of histone modifications, which shows high consistency across cell types and can greatly reduce the dimensionality of feature vectors. Integrating shape features with a machine-learning algorithm AdaBoost, we developed an enhancer predicting method, DELTA (Distal Enhancer Locating Tool based on AdaBoost). We show that DELTA significantly outperforms current enhancer prediction methods in prediction accuracy on different datasets and can predict enhancers in one cell type using models trained in other cell types without loss of accuracy. Overall, our study presents a novel framework for accurately identifying enhancers from epigenetic data across multiple cell types.},
+    number = {6},
+    doi = {10.1371/journal.pone.0130622}
+}
+
+@article{ChenMultinomialLASSORegression,
+author = {Chen, Chih-Yu and Morris, Quaid and Mitchell, Jennifer},
+year = {2012},
+month = {04},
+pages = {152},
+title = {Enhancer identification in mouse embryonic stem cells using integrative modeling of chromatin and genomic features},
+volume = {13},
+journal = {BMC genomics},
+doi = {10.1186/1471-2164-13-152}
+}
+
+@article{DEEP,
+    author = {Kleftogiannis, Dimitrios and Kalnis, Panos and Bajic, Vladimir B.},
+    title = "{DEEP: a general computational framework for predicting enhancers}",
+    journal = {Nucleic Acids Research},
+    volume = {43},
+    number = {1},
+    pages = {e6-e6},
+    year = {2014},
+    month = {11},
+    abstract = "{Transcription regulation in multicellular eukaryotes is orchestrated by a number of DNA functional elements located at gene regulatory regions. Some regulatory regions (e.g. enhancers) are located far away from the gene they affect. Identification of distal regulatory elements is a challenge for the bioinformatics research. Although existing methodologies increased the number of computationally predicted enhancers, performance inconsistency of computational models across different cell-lines, class imbalance within the learning sets and ad hoc rules for selecting enhancer candidates for supervised learning, are some key questions that require further examination. In this study we developed DEEP, a novel ensemble prediction framework. DEEP integrates three components with diverse characteristics that streamline the analysis of enhancer's properties in a great variety of cellular conditions. In our method we train many individual classification models that we combine to classify DNA regions as enhancers or non-enhancers. DEEP uses features derived from histone modification marks or attributes coming from sequence characteristics. Experimental results indicate that DEEP performs better than four state-of-the-art methods on the ENCODE data. We report the first computational enhancer prediction results on FANTOM5 data where DEEP achieves 90.2\% accuracy and 90\% geometric mean (GM) of specificity and sensitivity across 36 different tissues. We further present results derived using in vivo-derived enhancer data from VISTA database. DEEP-VISTA, when tested on an independent test set, achieved GM of 80.1\% and accuracy of 89.64\%. DEEP framework is publicly available at http://cbrc.kaust.edu.sa/deep/.}",
+    issn = {0305-1048},
+    doi = {10.1093/nar/gku1058},
+    url = {https://doi.org/10.1093/nar/gku1058},
+    eprint = {https://academic.oup.com/nar/article-pdf/43/1/e6/16660159/gku1058.pdf},
+}
+@article{lecun2015deeplearning,
+  abstract = {Deep learning allows computational models that are composed of multiple processing layers to learn representations of data with multiple levels of abstraction. These methods have dramatically improved the state-of-the-art in speech recognition, visual object recognition, object detection and many other domains such as drug discovery and genomics. Deep learning discovers intricate structure in large data sets by using the backpropagation algorithm to indicate how a machine should change its internal parameters that are used to compute the representation in each layer from the representation in the previous layer. Deep convolutional nets have brought about breakthroughs in processing images, video, speech and audio, whereas recurrent nets have shone light on sequential data such as text and speech.},
+  added-at = {2019-11-21T08:33:04.000+0100},
+  author = {LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+  biburl = {https://www.bibsonomy.org/bibtex/22d2dbe7ffc1f95b46d0fc31b9b2706d6/muehlburger},
+  description = {Deep Learning first paper.},
+  doi = {10.1038/nature14539},
+  interhash = {6e8511bc64ba3e808ebf330db96a4ea5},
+  intrahash = {2d2dbe7ffc1f95b46d0fc31b9b2706d6},
+  journal = {Nature},
+  keywords = {anomaly-detection deep-learning machine-learning},
+  number = 7553,
+  pages = {436--444},
+  timestamp = {2019-11-21T08:33:04.000+0100},
+  title = {Deep Learning},
+  url = {https://doi.org/10.1038/nature14539},
+  volume = 521,
+  year = 2015
+}
+@inproceedings{LiYifengDFS,
+author = {Li, Yifeng and Chen, Chih-Yu and Wasserman, Wyeth},
+year = {2015},
+month = {04},
+pages = {},
+title = {Deep feature selection: Theory and application to identify enhancers and promoters},
+doi = {10.13140/2.1.3673.6327}
+}
+@article{LecunCNN,
+author = {Lecun, Yann and Bottou, Leon and Bengio, Y. and Haffner, Patrick},
+year = {1998},
+month = {12},
+pages = {2278 - 2324},
+title = {Gradient-Based Learning Applied to Document Recognition},
+volume = {86},
+journal = {Proceedings of the IEEE},
+doi = {10.1109/5.726791}
+}
+
+@ARTICLE{MartinezCNN,
+  author={H. P. {Martinez} and Y. {Bengio} and G. N. {Yannakakis}},
+  journal={IEEE Computational Intelligence Magazine}, 
+  title={Learning deep physiological models of affect}, 
+  year={2013},
+  volume={8},
+  number={2},
+  pages={20-33},}
+  
+@article{AlipanahiDeepBind,
+author = {Alipanahi, Babak and Delong, Andrew and Weirauch, Matthew and Frey, Brendan},
+year = {2015},
+month = {07},
+pages = {},
+title = {Predicting the sequence specificities of DNA- and RNA-binding proteins by deep learning},
+volume = {33},
+journal = {Nature biotechnology},
+doi = {10.1038/nbt.3300}
+}
+
+@article{XiongExon,
+author = {Xiong, Hui and Alipanahi, Babak and Lee, Leo and Bretschneider, Hannes and Merico, Daniele and Yuen, Ryan and Hua, Yimin and Gueroussov, Serge and Najafabadi, Hamed and Hughes, Timothy and Morris, Quaid and Barash, Yoseph and Krainer, Adrian and Jojic, Nebojsa and Scherer, Stephen and Blencowe, Benjamin and Frey, Brendan},
+year = {2014},
+month = {12},
+pages = {},
+title = {RNA splicing. The human splicing code reveals new insights into the genetic determinants of disease},
+volume = {347},
+journal = {Science (New York, N.Y.)},
+doi = {10.1126/science.1254806}
+}
+@article{SecondaryStructure,
+author = {Spencer, Matt and Eickholt, Jesse and Cheng, Jianlin},
+year = {2014},
+month = {08},
+pages = {1},
+title = {A Deep Learning Network Approach to ab initio Protein Secondary Structure Prediction},
+volume = {PP},
+journal = {IEEE/ACM transactions on computational biology and bioinformatics / IEEE, ACM},
+doi = {10.1109/TCBB.2014.2343960}
+}
+
+@article{WassermannDECRES,
+author = {Li, Yifeng and Shi, Wenqiang and Wasserman, Wyeth},
+year = {2018},
+month = {05},
+pages = {},
+title = {Genome-Wide Prediction of cis-Regulatory Regions Using Supervised Deep Learning Methods},
+volume = {accepted},
+journal = {BMC Bioinformatics},
+doi = {10.1186/s12859-018-2187-1}
+}
+@article{LiMLReview,
+author = {Li, Yifeng and Chen, Chih-Yu and Kaye, Alice and Wasserman, Wyeth},
+year = {2015},
+month = {10},
+pages = {},
+title = {The Identification of cis-Regulatory Elements: A Review from a Machine Learning Perspective},
+volume = {accepted},
+journal = {Biosystems},
+doi = {10.1016/j.biosystems.2015.10.002}
+}
+@inproceedings{CollobertWeston2008,
+author = {Collobert, Ronan and Weston, Jason},
+title = {A Unified Architecture for Natural Language Processing: Deep Neural Networks with Multitask Learning},
+year = {2008},
+isbn = {9781605582054},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1390156.1390177},
+doi = {10.1145/1390156.1390177},
+booktitle = {Proceedings of the 25th International Conference on Machine Learning},
+pages = {160–167},
+numpages = {8},
+location = {Helsinki, Finland},
+series = {ICML ’08}
+}
+@inproceedings{Deng2013,
+author = {Deng, li and Hinton, Geoffrey and Kingsbury, Brian},
+year = {2013},
+month = {10},
+pages = {8599-8603},
+title = {New types of deep neural network learning for speech recognition and related applications: An overview},
+journal = {Acoustics, Speech, and Signal Processing, 1988. ICASSP-88., 1988 International Conference on},
+doi = {10.1109/ICASSP.2013.6639344}
+}
+
+@inproceedings{Girshick2015,
+author = {Girshick, Ross},
+title = {Fast R-CNN},
+year = {2015},
+isbn = {9781467383912},
+publisher = {IEEE Computer Society},
+address = {USA},
+url = {https://doi.org/10.1109/ICCV.2015.169},
+doi = {10.1109/ICCV.2015.169},
+booktitle = {Proceedings of the 2015 IEEE International Conference on Computer Vision (ICCV)},
+pages = {1440–1448},
+numpages = {9},
+series = {ICCV ’15}
+}
+@article{Ramsundar2015,
+author = {Ramsundar, Bharath and Kearnes, Steven and Riley, Patrick and Webster, Dale and Konerding, David and Pande, Vijay},
+year = {2015},
+month = {02},
+pages = {},
+title = {Massively Multitask Networks for Drug Discovery},
+journal = {arXiv:1502.02072}
+}
+@article{Ruder2017,
+author = {Ruder, Sebastian},
+year = {2017},
+month = {06},
+pages = {},
+title = {An Overview of Multi-Task Learning in Deep Neural Networks}
+}
+
+@article{RuderGDOpt,
+author = {Ruder, Sebastian},
+year = {2016},
+month = {09},
+pages = {},
+title = {An overview of gradient descent optimization algorithms}
+}
+
+@inbook{HintonBackProp,
+author = {Rumelhart, David E. and Hinton, Geoffrey E. and Williams, Ronald J.},
+title = {Learning Representations by Back-Propagating Errors},
+year = {1988},
+isbn = {0262010976},
+publisher = {MIT Press},
+address = {Cambridge, MA, USA},
+booktitle = {Neurocomputing: Foundations of Research},
+pages = {696–699},
+numpages = {4}
+}
+
+
+
+
   
 
 

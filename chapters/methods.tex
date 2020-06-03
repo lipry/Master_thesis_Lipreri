@@ -1,6 +1,73 @@
-\section{Single-Task Neural Networks}
-Describing the structure of single Task Neural Networks
-\section{Multi-Task Neural Networks}
+\section{Single-Task Feed-forward Neural Networks}
+% TODO: citations!
+% TODO: check nn math 
+% TODO: binary functions reppresentation theorem. 
+\emph{Feed-forward neural networks} (FNN), also known as multilayer perceptron, are artificial neural network (ANN) that does not contains cycles. Despite many ANN models have failed the original attempts to mathematically reproduce the real structure of the brain they became an efficient model for pattern recognition. 
+
+A feedforward neural network is described by a directed acyclic graph, $G =
+(V,E)$, and a weight function over the edges, $w : E \to \mathbb R$ ($w(i, j) = 0$
+for every $(i, j) \notin E$). Nodes of the graph correspond to neurons. Each
+single neuron is modeled as a simple scalar function, $ \sigma : \mathbb R \to
+\mathbb R$, this function is called \emph{activation function}. FNNs are usually
+splitted in layers, that is the nodes in $V$ are decomposed in disjoint sets such
+as for every layers $t \in T$ we have $V = \dot\cup_{t = 0}^T V_t$, $V_0$ and
+$V_T$ are respectively called input and output layer, note that $|V_0| = d$ and
+$|V_T| = n$ where $d$ is the dimensionality of the input space and $n$ the
+dimensionality of the output space. Given the graph $G$, the map $w$ and the
+activation function $\sigma$ the network is able to calculate the function
+$f_{G,W,\sigma}$.  For every node $i \in V$ a value $v_i$ is associated and given $j
+\in V \setminus V_0$ we define $w(j)$ and $v(j)$, for every $(i, j) \in E$, the
+former is the vector containing all the weights $w(i, j)$ and the latter is the
+vector whose component are the values $v_i$. Now the vector $f(x)$ is computed as
+follow:
+\begin{enumerate}
+    \item $v_i = x_i$ for every node $i \in V_0$;
+    \item $v_j = \sigma(w(j)^T v(j))$ for every node $j \in V \setminus V_0$;
+    \item $f_k = v_k$, where k is the $k$th output node.
+\end{enumerate}
+With the tuple $(G, \sigma)$, often called \emph{architecture of the network}, we can define the class of predictors: 
+\[ \mathcal{F}_{G, \sigma} = \{ f_{G, \sigma, w} \mid w \textrm{ is a mapping from } E \textrm{ to } \mathbb R \} \]
+From the standpoint of expressiveness of FNNs it is proved that with binary input $x \in \{-1, 1\}^d$, $mathrm{sign}$ as activation
+function $\sigma$, a single hidden layer network is able to
+implement every function $f: {-1, +1}^d \to {-1, +1}$. Note that the
+binary constraint is just a useful simplification because, in
+practical term, every real coordinates in a computer is represented
+by a bit string of length $b$. That is, a single hidden layer is
+enough to represent every Boolean functions. The downside is that
+the number of neurons required must be exponential in the dimension
+of the input space. Currently there is no mathematical proof on the
+best network architecture, but there are some empirical evidence
+that is better to place less neurons in many layers (deep learning)
+rather than many neurons in a single layer. % TODO: citations
+
+To train the weights of a feed-forward neural network is usually
+used a gradient descent algorithm. The most common is called
+Stochastic Gradient Descent (SGD), where, for every randomly sampled
+example $x_t$ from the training set, the parameters $w(i, j)$ of the
+network are update using the following rule:
+
+\[ w(i, j) \leftarrow w(i, j) -  \eta_t \frac{\delta\ell_{x_t}(W)}{\delta w(i, j )}\]
+
+where $\ell_(.)$ is a convex loss function. SGD is not the only
+gradient descent algorithm used, in the last year in order to
+improve the convergence of the network many others were introduced,
+such as mini-batch gradient descent, nesterov, adagrad
+\cite{RuderGDOpt}. 
+
+An algorithm called \emph{back-propagation} is used to compute the
+gradient of the loss with respect of the weights in SGD. The
+algorithm basically, using the chain rule of derivation, compute the
+the gradient iterating backward layer by layer
+\cite{HintonBackProp}.
+
+%find best subsection title
+\subsection{in our work}
+
+
+
+
+
+\section{Multi-Task Neural Networks}\label{MTLsection}
 Describing the structure of Multi task Neural networks (Fixed size neurons and Pyramidal model)
 \section{Gaussian Process for Hyper-parameters Tuning of the Models}
 Describing Bayesian optimization 
