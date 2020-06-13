@@ -1,8 +1,8 @@
 \section{Classification of Regulatory Regions}
 %todo: ampliare questa sezione anche con eventuali riferimenti
 The aim of this work is to test whether a novel deep learning approach,
-know as multi-task learning, perform better than the current state-of-art
-machine learning approaches (in particular single task neural networks) in
+know as multi-task learning (Section~\ref{sec:MTLsection}), perform better than the current state-of-art
+machine learning approaches (in particular single task neural networks, Section~\ref{sec:singletaskNN}) in
 DNA cis-regulatory regions (CRRs) classification. CRRs, such as
 \emph{enhancers} and \emph{promoters}, are non-coding DNA sections which
 regulate the transcription of the genes. Identifying these regions across
@@ -31,14 +31,14 @@ collected by specialized consortia, among many we can mention: The ENCODE
 
 This volume of NGS data has allowed the development of novel computational
 methods with particular focus on both unsupervised and supervised machine
-learning approaches, an extensive review of these techniques was written by Li et al. in \cite{LiMLReview}. Motivated by the small set of reliable annotations, the first works used unsupervised methods, among them very important contributions are chromHMM \cite{ernst2012chromhmm}
+learning approaches, an extensive review of these techniques was written by Li et al. in \cite{LiMLReview}. The first works in that direction, motivated by the small set of reliable annotations, used unsupervised methods; among them very important contributions are chromHMM \cite{ernst2012chromhmm}
 and Segway \cite{HoffmanSegway} that use respectively Hidden Markov Models
 (HMM) and Dynamic Bayesian Network (DBN) to discover chromatin states. Due
 to the low accuracy of the described unsupervised models the researcher focused their attention on using additional experimental features and
 different machine learning approaches. In this contest many supervised
-methods have attempted to predict enhancers regions inside DNA, for
+methods have attempted to predict enhancers regions inside DNA; for
 instance Random Forest \cite{RFECS}, AdaBoost-based model
-\cite{DELTA_adaboost}, multinomial logistic regression with LASSO
+\cite{DELTA_adaboost} and multinomial logistic regression with LASSO
 regularization \cite{ChenMultinomialLASSORegression}. The emergence of new
 laboratory methods make possible for FANTOM5 Consortium to identify an
 atlas of transcriptionally active promoters and a set of transcriptionally
@@ -73,7 +73,7 @@ regulatory regions.
 
 %- previous works for MTL methods
 In this work we tried to make a step forward in predicting cis-regulatory
-regions, using a new deep learning approach know as Multi-Task Learning
+regions using a new deep learning approach known as Multi-Task Learning
 (MTL). Despite it has little or never been used in bioinformatics,
-especially in distinguish CRRs, A lot of MTL variants has been successfully applied in many
-fields, ranging from natural language processing \cite{CollobertWeston2008} and speech recognition \cite{Deng2013} to computer vision \cite{Girshick2015} and drug discovery \cite{Ramsundar2015}. An extensive overview of multi-task learning in deep neural network was written by Ruder in \cite{Ruder2017}. In Section~\ref{sec:MTLsection} is given a detailed explanation of Hard parameter sharing neural networks, the approach used in this works.
+especially in distinguish CRRs, a lot of MTL variants has been successfully applied in many
+fields, ranging from natural language processing \cite{CollobertWeston2008} and speech recognition \cite{Deng2013} to computer vision \cite{Girshick2015} and drug discovery \cite{Ramsundar2015}. An extensive overview of multi-task learning in deep neural network was written by Ruder in \cite{Ruder2017}. In Section~\ref{sec:MTLsection} is given a detailed explanation of Hard parameter sharing neural networks, the approach used in this work.
