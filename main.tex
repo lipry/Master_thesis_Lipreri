@@ -8,6 +8,11 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage[font={footnotesize,it}]{caption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{longtable}
+\usepackage{supertabular}
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -16,7 +21,7 @@
 
 \addbibresource{refs.bib}
 
-\title{Thesis}
+\title{Evaluating multi-task deep learning methods for genome-wide prediction of cis-regulatory regions}
 \author{Fabio Lipreri}
 \date{May 2020}
 % TODO: fix first page
@@ -36,15 +41,27 @@
 \chapter{Dataset}
 \input{chapters/3_dataset}
 
+\chapter{Experimental Setup}
+\input{chapters/4_experimental_setup}
+
 \chapter{Results}
-\input{chapters/4_results}
+\input{chapters/5_results}
 
 \chapter{Conclusion}
-\input{chapters/5_conclusion}
+\input{chapters/6_conclusion}
 
 \appendix
 \chapter{t-SNE Decomposition} \label{appendix:tsne}
 \input{chapters/appendix/tsne_decomposition.tex}
+
+\chapter{Features Importance Tables} \label{appendix:features_tables}
+\input{chapters/appendix/features_tables/A549_features}
+\input{chapters/appendix/features_tables/GM12878_features}
+\input{chapters/appendix/features_tables/H1_features}
+\input{chapters/appendix/features_tables/HEK293_features}
+\input{chapters/appendix/features_tables/HEPG2_features}
+\input{chapters/appendix/features_tables/K562_features}
+\input{chapters/appendix/features_tables/MCF7_features}
 
 \printbibliography
 

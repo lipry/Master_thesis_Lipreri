@@ -1,0 +1,90 @@
+% general setup (train test splitting etc.)
+% balanced unbaanced
+\section{General Experiments Configuration}
+As explained before the aim of this work is comparing the  cis-regulatory regions classification capabilities of two deep learning models: single-task and multi-task neural networks. Although the considered experiments have different setups, described in details later (Section and Section), in this Section we explain their common traits. 
+
+The two models are trained and evaluated for every computational task $p \in P \times L$ described in Section~\ref{sec:computational_tasks}. 
+An holdouts method is used to validate and generalize the results of our
+models. In particular, every experiment use 10 external holdouts and 1 internal
+holdout. Basically, for every external
+holdouts the dataset is splitted in \emph{training} and \emph{test} sets, the
+training set is further partitioned in \emph{internal training} and validation
+sets. Internal training and validation set are used by the Gaussian Process to
+choose the optimal set of hyper-parameters (Section~\ref{sec:gaussianprocess}),
+the best model found is evaluated using the test set. This procedure is
+repeated 10 times and the final performance metrics are obtained averaging AUPRC
+and AUROC of every external holdout (see Section~\ref{sec:methods_metrics}). The proportion between internal and external holdouts samples are respectively 70\% and 30\%. In Figure~\ref{fig:train_test_diagram} a diagram of one (out of ten) external and internal holdouts process is shown. 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{train_test_scheme.png}
+\caption{Single internal and external holdouts process diagram, note that this
+process is repeated 10 times.} 
+\label{fig:train_test_diagram}
+\end{figure}
+In order to train both single-task and multi task models we used the data described in Section~\ref{sec:epigenomic_data}. The features are filtered using the selection methods described earlier (see Section~\ref{sec:featureselection}). The Table containing the selected features could be found in Appendix~\ref{}.
+
+\section{Single-Task Neural Network Architecture}
+% single task neural network setup
+To evaluate the performance of multi-task neural network, we need to consider a benchmark model in our experimental setup. Due to their excellent results, obtained in the context of CRRs classification \cite{WassermannDECRES}, we choose to use a classical feed-forward neural network (explained in Section~\ref{sec:singletaskNN}). Fixed a computational task $p$, the network take the reduced set of epigenetic features as input and give the prediction of the labels $Y$. The model search is performed by a Gaussian process, the models can have from no hidden layers up to three hidden layers. In Table~\ref{tab:mlp_single_arch} are reported the number of neurons search space for every layers of the network. Since we seen in previous experiments that pyramidal architecture networks give better performances the bayesian optimizer is forced to always select an architecture such as the neurons of layer $i$ are greater or equals to the neurons of layer $i+1$. 
+A slightly variations of SGD explained in Section~\ref{sec:singletaskNN} called Stochastic Gradient Descend with momentum is employed to optimize the weights of the network. The initial learning rate, the $\ell_2$-regularization amount to control model complexity, and the momentum to stabilize the optimization are set respectively to 0.3, 0.001 and 0.5. The training set is iterated for a maximum of 1000 epochs and the learning rate could reduced as the number of iterations increase with a rate of 0.01. Finally, the batch size is fixed at 100 samples per batch.  
+\begin{table}[t]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Layer} & \textbf{Neurons} & \textbf{Activation} \\ 
+\midrule
+1 & (2, 4, 8, 16, 32, 64, 128, 256) & ReLU \\ 
+\midrule
+2 & (2, 4, 8, 16, 32, 64, 128) & ReLU \\ 
+\midrule
+3 & (2, 4, 8, 16, 32, 64) & ReLU \\ 
+\midrule
+4 & 1 & Sigmoid \\ 
+\bottomrule
+\end{tabular}
+\caption{Parameters setting for single-task feed-forward neural network}
+\label{tab:mlp_single_arch}
+\end{table}
+
+\section{Multi-Task neural network architecture} \label{sec:mtlmlp}
+% multi task neural network setup
+We choose to use an hard parameters sharing architecture explained in Section~\ref{sec:MTLsection}. The model is constructed with a multi-input and multi-output setting. Basically, there is an input branch for every features sets $F_\ell$ and an output branch for every cell lines. A main body of hidden layer connect input branches with output branches. Summarizing the architecture is divided in the following three main parts:
+\begin{itemize}
+    \item \textit{input branches layers}: every $F_\ell$ will be taken in input by a different branches of hidden layers; 
+    \item \textit{main body}: it is composed by shared hidden layers. The aim of this part is to share knowledge between cell lines. Basically, the prediction on a particular line $\ell$ could be affected by the information given from the other ones;
+    \item \textit{output branches layers}: the main body is splitted in different branches of hidden layers. Their purpose is giving the predictions of labels $Y$ of every $\ell \in L$.
+\end{itemize}
+In Figure~\ref{fig:MTL_arch_diagram} a diagram of the used architecture is reported.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{MTL_diagram.png}
+\caption{Multi-tasks neural network architecture. On the left every input branch take a cell lines feature set, on the left every output branch give the predictions for every cell lines $\ell$. They are connected, in the middle, by the main body layers. } 
+\label{fig:MTL_arch_diagram}
+\end{figure}
+Note that the network could have the input or the output directly connected to the main body without any input or output layers. 
+Also in this case the models search is performed by the Gaussian Process
+(Section~\ref{sec:gaussianprocess}). The input branches, output branches and
+the main body can have from zero up to three layers. In Table~\ref{tab:mplmtl} are summarized the number of neurons search space for every parts of the network. 
+To train the models a Stochastic Gradient Descent with momentum algorithm is used. The initial learning rate is choose by Gaussian model between 0.1 and 0.2 and it decay with the increasing of iterations with a 0.01 rate. The momentum and the dropout (a form of model complexity control) are set respectively to 0.5 and 0.2. Also in this case the model is iterated for 1000 epochs, the batch size is fixed to 1000 sample per batch. 
+\begin{table}[t]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Arch. Parts} & \textbf{Layers} & \textbf{Neurons per Layer} & \textbf{Activation} \\ 
+\midrule
+\multirow{2}{*}{\textit{Input branch}}  & 1 & 64, 128, 256, 512 & ReLU \\ 
+{} & 2 & 32, 64, 128, 256, 512 & ReLU \\
+{} & 3 & 16, 32, 64, 128, 256, 512 & ReLU \\
+\midrule
+\multirow{2}{*}{\textit{main body}} & 1 & 2, 4, 8, 16, 32, 64, 128, 256, 512 & ReLU \\ 
+{} & 2 & 2, 4, 8, 16, 32, 64, 128, 512 & ReLU \\
+{} & 3 & 2, 4, 8, 16, 32, 64, 128, 256, 512 & ReLU \\
+\midrule
+\multirow{2}{*}{\textit{output branch}} & 1 & 2, 4, 8, 16, 32, 64, 128, 256, 512 & ReLU\\ 
+{} & 2 & 2, 4, 8, 16, 32, 64, 128, 256, 512 & ReLU \\
+{} & 3 & 2, 4, 8, 16, 32, 64, 128, 256, 512 & ReLU \\
+\bottomrule
+\end{tabular}
+\caption{Parameters setting for Multi Task Learning MLP for epigenetic data}
+\label{tab:mplmtl}
+\end{table}

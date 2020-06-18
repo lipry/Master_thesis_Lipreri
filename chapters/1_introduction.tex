@@ -1,79 +1,75 @@
 \section{Classification of Regulatory Regions}
 %todo: ampliare questa sezione anche con eventuali riferimenti
 The aim of this work is to test whether a novel deep learning approach,
-know as multi-task learning (Section~\ref{sec:MTLsection}), perform better than the current state-of-art
-machine learning approaches (in particular single task neural networks, Section~\ref{sec:singletaskNN}) in
-DNA cis-regulatory regions (CRRs) classification. CRRs, such as
-\emph{enhancers} and \emph{promoters}, are non-coding DNA sections which
+know as multi-task learning (Section~\ref{sec:MTLsection}), performs better than current state-of-art
+machine learning approaches (in particular single task neural networks, Section~\ref{sec:singletaskNN}) in the classification of DNA cis-regulatory regions (CRRs). CRR such as
+\emph{enhancers} and \emph{promoters} are non-coding DNA sections which
 regulate the transcription of the genes. Identifying these regions across
 human DNA is a fundamental step to understand the impact of genetic
 variation on phenotype. The development of new computational and
-biological technology give to the researchers an impressive amount of new
-data and therefore the possibility of developing new computational methods
+biological technology gives researchers an impressive amount of new data and therefore the possibility of developing new computational methods
 for CRRs identification.
 
 Two of the most important type of DNA cis-regulatory regions are promoters
 and enhancers. Promoters are 100–1000 base pairs (bp) long DNA sequences
-usually located at the beginning of the transcription initiation site,
-they defines where the RNA polymerase should start the transcription of a
+usually located at the beginning of the transcription initiation site.
+They defines where the RNA polymerase should start the transcription of a
 gene. Enhancers are 50 to 1500 bp DNA sequences that, when bound to
 special proteins (Transcription Factors or TF), augment the transcription
-of associated gene.
+of the associated gene.
 
 \section{Previous Works}
 % TODO: RILEGGERE
 % TODO: scrivere dove spiego supervised neural network single task e dove spiego gli algoritmi multi task learning.
-With the rise of \emph{next-generation sequences} (NGS) techniques, able
-to identify various aspects of genomes, we have seen the generation of an
-incredible amount of biological information. These data are usually
-collected by specialized consortia, among many we can mention: The ENCODE
-(Encyclopedia of DNA Elements) Consortium \cite{ENCODE_data}, with the purpose of building a list of functional elements in the human genome; Roadmap Epigenomics Program \cite{ROADMAP} with the aim of create an epigenomic atlas for primary cells and tissues in human and finally FANTOM5 Project \cite{FANTOM_data} that is trying to uncover transcriptional regulatory networks based on transcript initiation positions.
+With the rise of \emph{next-generation sequences} (NGS) techniques, which are
+capable of identify various aspects of genomes, we have seen the generation of an incredible amount of biological information. This data are usually
+collected by specialized consortia. Among these, one can mention: the ENCODE
+(Encyclopedia of DNA Elements) Consortium \cite{ENCODE_data}, which aims at building a list of functional elements in the human genome; Roadmap Epigenomics Program \cite{ROADMAP} with the aim of creating an epigenomic atlas for primary cells and tissues in human and finally FANTOM5 Project \cite{FANTOM_data} which is trying to uncover transcriptional regulatory networks based on transcript initiation positions.
 
-This volume of NGS data has allowed the development of novel computational
+This volume of NGS data has allowed the development of new computational
 methods with particular focus on both unsupervised and supervised machine
-learning approaches, an extensive review of these techniques was written by Li et al. in \cite{LiMLReview}. The first works in that direction, motivated by the small set of reliable annotations, used unsupervised methods; among them very important contributions are chromHMM \cite{ernst2012chromhmm}
+learning approaches. An extensive review of these techniques was compiled by Li et al. \cite{LiMLReview}. The first work in this direction, motivated by small sets of reliable annotations, used unsupervised methods. Among these, chromHMM \cite{ernst2012chromhmm}
 and Segway \cite{HoffmanSegway} that use respectively Hidden Markov Models
-(HMM) and Dynamic Bayesian Network (DBN) to discover chromatin states. Due
-to the low accuracy of the described unsupervised models the researcher focused their attention on using additional experimental features and
-different machine learning approaches. In this contest many supervised
-methods have attempted to predict enhancers regions inside DNA; for
-instance Random Forest \cite{RFECS}, AdaBoost-based model
+(HMM) and Dynamic Bayesian Network (DBN) to discover chromatin states are the most important contributions. Given the low accuracy of the above mentioned unsupervised models, the researchers focused their attention on using additional experimental features and
+different machine learning approaches. In this context, many supervised
+methods such as Random Forest \cite{RFECS}, AdaBoost-based model
 \cite{DELTA_adaboost} and multinomial logistic regression with LASSO
-regularization \cite{ChenMultinomialLASSORegression}. The emergence of new
-laboratory methods make possible for FANTOM5 Consortium to identify an
+regularization \cite{ChenMultinomialLASSORegression} have attempted to predict enhancers regions inside DNA. The emergence of new
+laboratory methods made it possible for FANTOM5 Consortium to identify an
 atlas of transcriptionally active promoters and a set of transcriptionally
-active enhancers. In \cite{DEEP} the potential to distinguish enhancers by
-training a support vector machine with these data is suggested.
+active enhancers. In \cite{DEEP}, the possibility to distinguish enhancers by
+training a support vector machine with this data is put forward.
 
-The advancement of deep learning has made it possible to capture
-high-level knowledge from data, this new approach has extremely improved
-the state-of-the-art of many field such as speech recognition and computer
-vision \cite{lecun2015deeplearning}. From predicting the impact of
-variations on exon splicing \cite{XiongExon} to predicting proteins
-secondary structure \cite{SecondaryStructure} also bioinformaticians have
-applied deep learning techniques in many ways. In the context of
-cis-regulatory elements classifications deep learning was used with many
-beneficial effects. Deep Feature selection (DFS) was introduced to
+The advancement of deep learning made it possible to capture
+high-level knowledge from data. This new approach has improved
+the state-of-the-art of many research areas such as speech recognition and
+computer
+vision \cite{lecun2015deeplearning}. Bioinformaticians have
+applied deep learning techniques in many ways, ranging from predicting the impact
+of variations on exon splicing \cite{XiongExon} to predicting proteins
+secondary structure \cite{SecondaryStructure}. Deep learning was beneficially used in the context of cis-regulatory elements classifications. 
+Deep Feature selection (DFS) was introduced to
 overcome the limitations of previous feature selection models. In fact,
 using a sparse regularized one-to-one linear layer on the input features
-of a deep neural network, it can conveniently select a subset of features
-for multiple classes and it can consider non-linearity via a deep
-structure \cite{LiYifengDFS}. In order to detect the Transcription Factor
-Binding Site (TFBS), Convolutional Neural Networks (CNN) \cite{LecunCNN,
-MartinezCNN}, a powerful deep learning algorithm for modelling labelled
-sequential data, was recently applied in DeepBind \cite{AlipanahiDeepBind}.
-Another step forward in distinguish CRRs was accomplished by Wassermann
-and his group in DECRES \cite{WassermannDECRES}. Basically they achieved
+on deep neural networks, one can conveniently select a subset of features
+for multiple classes and thus consider non-linearity via a deep
+structure \cite{LiYifengDFS}. Convolutional Neural Networks (CNN) \cite{LecunCNN,
+MartinezCNN}, a powerful deep learning algorithm for modelling
+labelled sequential data was recently applied in DeepBind
+\cite{AlipanahiDeepBind} in order to detect the Transcription Factor
+Binding Site (TFBS), .
+Another step forward in distinguishing CRRs was accomplished by Wassermann
+and his group in DECRES \cite{WassermannDECRES}. Basically, they achieved
 excellent results using FANTOM promoters and enhancers (that provide the
 largest experimentally defined collection of CRRs) with the ENCODE project
-genome-wide feature data (histone modifications, TF binding, RNA
-transcripts, chromatin accessibility, and chromatin interactions) to
+genome-wide feature data, such as histone modifications, TF binding, RNA
+transcripts, chromatin accessibility, and chromatin interactions, to
 training supervised feedforward neural networks in order to detect
 regulatory regions.
 
 %- previous works for MTL methods
 In this work we tried to make a step forward in predicting cis-regulatory
 regions using a new deep learning approach known as Multi-Task Learning
-(MTL). Despite it has little or never been used in bioinformatics,
-especially in distinguish CRRs, a lot of MTL variants has been successfully applied in many
-fields, ranging from natural language processing \cite{CollobertWeston2008} and speech recognition \cite{Deng2013} to computer vision \cite{Girshick2015} and drug discovery \cite{Ramsundar2015}. An extensive overview of multi-task learning in deep neural network was written by Ruder in \cite{Ruder2017}. In Section~\ref{sec:MTLsection} is given a detailed explanation of Hard parameter sharing neural networks, the approach used in this work.
+(MTL). Despite MTL has little been used in bioinformatics,
+especially in distinguish CRRs, a lot of MTL variants have been successfully applied to many
+fields ranging from natural language processing \cite{CollobertWeston2008} to speech recognition \cite{Deng2013}, computer vision \cite{Girshick2015} and drug discovery \cite{Ramsundar2015}. An extensive overview of multi-task learning in deep neural network was written by Ruder \cite{Ruder2017}. Section~\ref{sec:MTLsection} provides a detailed explanation of Hard parameter sharing neural networks which is the MTL approach used in this work.

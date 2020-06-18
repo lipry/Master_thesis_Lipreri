@@ -14,39 +14,42 @@ $V_T$ are respectively called input and output layer, note that $|V_0| = d$ and
 $|V_T| = n$ where $d$ is the dimensionality of the input space and $n$ the
 dimensionality of the output space. Given the graph $G$, the map $w$ and the
 activation function $\sigma$ the network is able to calculate the function
-$f_{G,W,\sigma}$. For every node $i \in V$ a value $v_i$ is associated, given $j
-\in V \setminus V_0$ we define, for every $(i, j) \in E$, $w(j)$ as the vector containing all the weights $w(i, j)$  and $v(j)$, as the vector whose component are the values $v_i$. Now the vector $f(x)$ is computed as
-follow:
+$f_{G,W,\sigma}$. For every node $i \in V$ a value $v_i$ is associated. Given $j
+\in V \setminus V_0$, for every $(i, j) \in E$ we define $w(j)$, the vector containing all
+the weights $w(i, j)$ and $v(j)$, the vector whose components are the values $v_i$. Now the
+vector $f(x)$ is computed as follow:
 \begin{enumerate}
     \item $v_i = x_i$ for every node $i \in V_0$;
     \item $v_j = \sigma(w(j)^T v(j))$ for every node $j \in V \setminus V_0$;
     \item $f_k = v_k$, where k is the $k$th output node.
 \end{enumerate}
-In Figure~\ref{fig:neural_network_example} an example of neural network architecture is shown. \cite{ShwartzUnderstadningML, BishopML}
+In Figure~\ref{fig:neural_network_example} an example of neural network architecture is
+shown. \cite{ShwartzUnderstadningML, BishopML}
 \begin{figure}[ht]
 \includegraphics[width=\textwidth]{neural_network_example.png}
-\caption{Deep Neural Network architecture example, it has a 3-dimensional input layer ($V_0$), one hidden layer ($V_1$) and a single neuron output layer ($V_2$) \cite{ShwartzUnderstadningML}.} 
+\caption{Deep Neural Network architecture example, it has a 3-dimensional input layer
+($V_0$), one hidden layer ($V_1$) and a single neuron output layer ($V_2$)
+\cite{ShwartzUnderstadningML}.} 
 \label{fig:neural_network_example}
 \end{figure}
 
-With the tuple $(G, \sigma)$, often called \emph{architecture of the network}, we can define the class of predictors: 
+Starting from the tuple $(G, \sigma)$, often called \emph{architecture of the network}, we can define the class of predictors: 
 \[ \mathcal{F}_{G, \sigma} = \{ f_{G, \sigma, w} \mid w \textrm{ is a mapping from } E \textrm{ to } \mathbb R \} \]
-From the standpoint of expressiveness of FNNs it is proved that using binary input $x \in \{-1, 1\}^d$ and $\mathrm{sign}$ as activation
+From an expressiveness standpoint, it is proved that with a FNN using a binary input $x \in \{-1, 1\}^d$ and $\mathrm{sign}$ as activation
 function $\sigma$, a single hidden layer network is able to
-implement every binary function $f: \{-1, +1\}^d \to \{-1, +1\}$. Note that the
-binary constraint is just a useful simplification because, in
-practical term, every real coordinates in a computer is represented
+implement every binary function $f: \{-1, +1\}^d \to \{-1, +1\}$. Note that in
+practical term the binary constraint is just a useful simplification because every real coordinates in a computer is represented
 by a bit string of length $b$. That is, a single hidden layer is
 enough to represent every Boolean functions. The downside is that
 the number of neurons required must be exponential in the dimension
-of the input space. Currently there is no mathematical proof on the
-best network architecture, but there are some empirical evidence
-that is better to place less neurons in many layers (deep learning)
-rather than many neurons in a single layer. % TODO: citations
+of the input space. Currently there are no mathematical proofs about the construction of
+best network architecture for a given problem, nevertheless there are empirical evidences
+about the fact that is better a network with less neurons distributed in many layers (deep
+learning) rather than many neurons in a single layer. % TODO: citations
 
 To train the weights of a feed-forward neural network is usually
 used a gradient descent algorithm. The most common is called
-Stochastic Gradient Descent (SGD), where, for every randomly sampled
+Stochastic Gradient Descent (SGD). For every randomly sampled
 example $x_t$ from the training set, the parameters $w(i, j)$ of the
 network are update using the following rule:
 
@@ -55,15 +58,13 @@ w(i, j) \leftarrow w(i, j) -  \eta_t \frac{\delta\ell_{x_t}(W)}{\delta w(i, j )}
 \end{equation}
 
 where $\ell_(.)$ is a convex loss function. SGD is not the only
-gradient descent algorithm used, in the last year in order to
-improve the convergence of the network many others were introduced,
-such as mini-batch gradient descent, nesterov, adagrad
+gradient descent algorithm used. In fact, in order to
+improve the convergence of the neural networks many others algorithms were introduced,
+the most popular were \emph{mini-batch gradient descent}, \emph{nesterov}, \emph{adagrad}
 \cite{RuderGDOpt}. 
 
 An algorithm called \emph{back-propagation} is used to compute the
-gradient of the loss with respect of the weights in SGD. The
-algorithm basically, using the chain rule of derivation, compute the
-the gradient iterating backward layer by layer
+gradients of the losses with respect of the weights in SGD. Using the chain rule of derivation the algorithm compute the the gradient with a layer by layer backward iteration
 \cite{HintonBackProp}.
  
 
@@ -71,28 +72,28 @@ the gradient iterating backward layer by layer
 %TODO: soft and hard parameter sharing figures
 Multi-Task learning (MTL) is became increasing popular in recent years.
 Usually, to optimizing the predictions of a given task, a single model is
-tuned and trained. In this way good results can be achieved, but many
+tuned and trained. In this way good results can be achieved but many
 information that might come from related task are lost. MTL methods take
-the signal from related tasks in consideration by sharing the
+the signal from related considered tasks by sharing the
 representation between them. The typical settings is to learning multiple
 task simultaneously using a shared representation, what is learned by one
 task can be helpful for the others tasks and vice versa \cite{Caruana97}.
 There are many motivation behind MTL: from a biological point of view is
 inspired by the way human brain learn (the knowledge of tasks can help us
-learning other tasks), from a pure machine learning perspective, instead,
-can be view as a form of regularization where the inductive bias is
+learning other tasks), from a pure machine learning perspective
+can be seen as a form of regularization in which the inductive bias is
 introduced by the auxiliary tasks \cite{Ruder2017}. While in the past MTL
-was more used in non-neural models, more recently many deep learning
-works exploiting this approach were developed. In this context the two
+was more used in non-neural models, recently many deep learning algorithm 
+exploiting this approach were developed. In this context the two
 most used ways to perform multi-task learning are called \emph{soft
 parameters sharing} and \emph{hard parameter sharing}. In the former
 every tasks has his own set of parameters, the distance between this
 parameters is regularized in order to become similar and represent
 multiple tasks, noticeable example are \cite{duong-etal-2015-low} and
-\cite{yang2016trace}, in the latter instead a fixed number of hidden
+\cite{yang2016trace}. In the latter instead a fixed number of hidden
 layers are shared between tasks and keeping several task specific output
 layers. In this works we have focused on hard-parameters sharing methods
-to implement our MTL network. Given $N$ the number of tasks, it is proved
+to implement our MTL networks. Given $N$ the number of tasks, it is proved
 that hard-parameters sharing reduce the risk of over-fitting $N$ times
 compared to task-specific models \cite{baxter1997}.
 \begin{figure}
@@ -114,46 +115,45 @@ compared to task-specific models \cite{baxter1997}.
 \end{figure}
 
 \section{Gaussian Process for Hyper-parameters Tuning of the Models}
+\label{sec:gaussianprocess}
 % todo: integrate
 % todo: read again
 % todo: images
 % todo: fix mathematical formalization (???)
 In Section~\ref{sec:singletaskNN} and Section~\ref{sec:MTLsection} we
-described single-task and multi-task approach for training neural
-networks from a theoretical point of view. In practice, due to the
+described the theoretical aspects of training single-task and multi-task neural networks. In practical terms, due to the
 growing complexity of deep learning models, working with neural networks
 involves a proper choice of many hyper-parameters, such as the shape of
 the network architecture, the learning rate, or the regularizer weight
 decay. Over the years many hyper-parameters optimization algorithms were
-proposed; grid and random search \cite{BergstraB12} are two important
-examples. A more sophisticated model could be exploiting bayesian optimization
+proposed. Among this, grid and random search \cite{BergstraB12} are very important examples. A more sophisticated model could be exploiting bayesian optimization
 and use it to choose the best hyper-parameters for a given model
 \cite{SnoekGP}. In general, the aim of optimizers is to minimize (or
 maximize) a scoring function respect its hyper-parameters, given
-$\mathcal{X}$ the set of hyper-parameters and $f(x)$ the scoring function
+$\mathcal{X}$ the set of hyper-parameters and $f(x)$ the scoring function of interest
 (i.e., auprc, auroc, rmse, binary loss etc.) we have: 
 \[ 
 x^* =  \argmin_{x \in \mathcal{X}} f(x) 
 \]
-the main difference between bayesian optimization respect the more
-traditional approaches is that, bayesian optimization, choose the next
-hyper-parameters set in an informed way keeping track of past evaluations
-that use to build a probabilistic model called \emph{surrogate function}, often build using a Gaussian process. That is, in every
-iteration the surrogate function is updated selecting, with a
-\emph{selection function} such as Expected Improvement (EI), and
+the main difference between bayesian optimization in comparison with more
+traditional approaches is that bayesian optimization choose the next
+hyper-parameters set in an informed way. In fact, it keeps track of past evaluations
+that use to build a probabilistic model called \emph{surrogate function}. This function is often built using a Gaussian process. That is, in every
+iteration the surrogate function is updated selecting, with a particular
+\emph{selection function} (i.e., Expected Improvement function), and
 evaluating a new set of hyper-parameters. On one hand bayesian methods
 take more time smartly choosing the next set of hyper-parameters, on the other hand they make few iterations in total compared to grid and random search. 
 Recently Keras developer have released a new hyper parameter optimizer
 open-source library called Keras-tuner \footnote{Available on GitHub:
 \url{https://github.com/keras-team/keras-tuner}}
-\cite{omalley2019kerastuner}, it contains, among many others, an
+\cite{omalley2019kerastuner}. It contains, among many others, an
 implementation of bayesian optimization\footnote{Documentation available
 at: \url{https://keras-team.github.io/keras-tuner/documentation/tuners/}}.
 
-\section{Evaluation Metrics}
+\section{Evaluation Metrics} \label{sec:methods_metrics}
 In this section the principal evaluation metrics used in this work are described. 
 % todo: loss funtion better in another section?
-In Section~\ref{sec:singletaskNN} we described Stochastic Gradient Descend algorithm, in Equation~\ref{eq:sgd} we seen that, in order to update the parameters of the network, we need to calculate the derivative of a convex loss function $\ell(.)$ respect the weights. In this work, in order to train both single and multi task neural networks, we utilized a well-known loss function, often used in binary classification, called \emph{binary cross-entropy}. Given $t \in \{0, 1\}$, the true binary label of a sample, and $s \in [0, 1]$, the probability score given by a predictor, we define binary cross-entropy as:
+In Section~\ref{sec:singletaskNN} we described Stochastic Gradient Descend algorithm. In order to update the parameters of the network in Equation~\ref{eq:sgd} we seen that we need to calculate the derivative of a convex loss function $\ell(.)$ respect the weights. In this work, in order to train both single and multi task neural networks, we utilized a well-known loss function, often used in binary classification, called \emph{binary cross-entropy}. Given $t \in \{0, 1\}$, the true binary label of a sample, and $s \in [0, 1]$, the probability score given by a predictor, we define binary cross-entropy as:
 \begin{equation}
     \ell(t, s) = -tlog(s) - (1 - t)log(1 - s)
 \end{equation}
@@ -162,7 +162,7 @@ In order to evaluate the performance of the models, many metrics can be used. De
 \begin{equation}
     \textrm{accuracy} = \frac{\#\{\textrm{correct samples}\}}{\#\{\textrm{total samples}\}}
 \end{equation}
-It is easy to notice that the main drawback of accuracy is that, with unbalanced dataset, we can achieve a misleading higher values. Fortunately, during the years, more stable performance evaluation metrics were introduced in order to overcome accuracy disadvantages. Before describing this new metrics, in the contest of binary classification, we must introduce four classification terms: 
+It is easy to notice that the main drawback of accuracy is that, with unbalanced dataset, we can achieve a misleading higher values. Fortunately, during the years, more stable performance evaluation metrics were introduced in order to overcome accuracy disadvantages. In the contest of binary classification before describing this new metrics we must introduce four classification terms: 
 \begin{itemize}
 \item \emph{True Positive} (TP): samples classified as positive where also the actual value is positive;
 \item \emph{False Positive} (FP): samples classified as positive where the actual values is negative;
