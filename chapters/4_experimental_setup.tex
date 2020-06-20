@@ -12,8 +12,8 @@ training set is further partitioned in \emph{internal training} and validation
 sets. Internal training and validation set are used by the Gaussian Process to
 choose the optimal set of hyper-parameters (Section~\ref{sec:gaussianprocess}),
 the best model found is evaluated using the test set. This procedure is
-repeated 10 times and the final performance metrics are obtained averaging AUPRC
-and AUROC of every external holdout (see Section~\ref{sec:methods_metrics}). The proportion between internal and external holdouts samples are respectively 70\% and 30\%. In Figure~\ref{fig:train_test_diagram} a diagram of one (out of ten) external and internal holdouts process is shown. 
+repeated 10 times and the final performance metrics are obtained averaging auPRC
+and auROC of every external holdout (see Section~\ref{sec:methods_metrics}). The proportion between internal and external holdouts samples are respectively 70\% and 30\%. In Figure~\ref{fig:train_test_diagram} we show a diagram of one (out of ten) external and internal holdouts process. 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.9\textwidth]{train_test_scheme.png}
@@ -54,7 +54,7 @@ We choose to use an hard parameters sharing architecture explained in Section~\r
     \item \textit{main body}: it is composed by shared hidden layers. The aim of this part is to share knowledge between cell lines. Basically, the prediction on a particular line $\ell$ could be affected by the information given from the other ones;
     \item \textit{output branches layers}: the main body is splitted in different branches of hidden layers. Their purpose is giving the predictions of labels $Y$ of every $\ell \in L$.
 \end{itemize}
-In Figure~\ref{fig:MTL_arch_diagram} a diagram of the used architecture is reported.
+In Figure~\ref{fig:MTL_arch_diagram} we report a diagram of the used architecture.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{MTL_diagram.png}

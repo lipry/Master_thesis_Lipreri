@@ -1,16 +1,16 @@
 \section{Single-Task Feed-forward Neural Networks} \label{sec:singletaskNN}
 % TODO: citations!
 % TODO: check nn math 
-\emph{Feed-forward neural networks} (FNN), also known as multilayer perceptron, are artificial neural network (ANN) that does not contains cycles. Despite many ANN models have failed the original attempts to mathematically reproduce the real structure of the brain they became an efficient model for pattern recognition. 
+\emph{Feed-forward neural networks} (FNN), also known as multilayer perceptron, are artificial neural networks (ANN) that does not contains cycles. Despite many ANN models have failed the original attempts to mathematically reproduce the real structure of the brain they became an efficient model for pattern recognition. 
 
-Given $V$ the set of vertices and $E$ the edges, a feedforward neural network is described by a directed acyclic graph, $G =
-(V,E)$, and a weight function over the edges, $w : E \to \mathbb R$ ($w(i, j) = 0$
+Given a set $V$ of vertices and a set  $E\subseteq V\times V$ of edges, a feedforward neural network is described by a directed acyclic graph, $G =
+(V,E)$, and a weight function over the edges, $w : E \to \mathbf R$ ($w(i, j) = 0$
 for every $(i, j) \notin E$). The nodes of the graph correspond to neurons. Each
-single neuron is modeled as a simple scalar function, often called \emph{activation function},  $ \sigma : \mathbb R \to
-\mathbb R$. FNNs are usually
-splitted in layers, that is the nodes in $V$ are decomposed in disjoint sets such
-as for every layers $t < T$ we have $V = \dot\cup_{t = 0}^T V_t$, $V_0$ and
-$V_T$ are respectively called input and output layer, note that $|V_0| = d$ and
+single neuron is modeled as a simple scalar function, often called \emph{activation function},  $ \sigma : \mathbf R \to
+\mathbf R$. FNNs are usually
+split in layers, that, is the nodes in $V$ are decomposed in disjoint sets $V_t$, $0\leq t\leq T$,
+and $V = \cup_{t = 0}^T V_t$. $V_0$ and
+$V_T$ are respectively called input and output layer; note that $|V_0| = d$ and
 $|V_T| = n$ where $d$ is the dimensionality of the input space and $n$ the
 dimensionality of the output space. Given the graph $G$, the map $w$ and the
 activation function $\sigma$ the network is able to calculate the function
@@ -23,8 +23,7 @@ vector $f(x)$ is computed as follow:
     \item $v_j = \sigma(w(j)^T v(j))$ for every node $j \in V \setminus V_0$;
     \item $f_k = v_k$, where k is the $k$th output node.
 \end{enumerate}
-In Figure~\ref{fig:neural_network_example} an example of neural network architecture is
-shown. \cite{ShwartzUnderstadningML, BishopML}
+In Figure~\ref{fig:neural_network_example} we show an example of neural network architecture \cite{ShwartzUnderstadningML, BishopML}.
 \begin{figure}[ht]
 \includegraphics[width=\textwidth]{neural_network_example.png}
 \caption{Deep Neural Network architecture example, it has a 3-dimensional input layer
@@ -34,7 +33,7 @@ shown. \cite{ShwartzUnderstadningML, BishopML}
 \end{figure}
 
 Starting from the tuple $(G, \sigma)$, often called \emph{architecture of the network}, we can define the class of predictors: 
-\[ \mathcal{F}_{G, \sigma} = \{ f_{G, \sigma, w} \mid w \textrm{ is a mapping from } E \textrm{ to } \mathbb R \} \]
+\[ \mathcal{F}_{G, \sigma} = \{ f_{G, \sigma, w} \mid w \textrm{ is a mapping from } E \textrm{ to } \mathbf R \} \]
 From an expressiveness standpoint, it is proved that with a FNN using a binary input $x \in \{-1, 1\}^d$ and $\mathrm{sign}$ as activation
 function $\sigma$, a single hidden layer network is able to
 implement every binary function $f: \{-1, +1\}^d \to \{-1, +1\}$. Note that in
@@ -52,11 +51,9 @@ used a gradient descent algorithm. The most common is called
 Stochastic Gradient Descent (SGD). For every randomly sampled
 example $x_t$ from the training set, the parameters $w(i, j)$ of the
 network are update using the following rule:
-
 \begin{equation} \label{eq:sgd} 
 w(i, j) \leftarrow w(i, j) -  \eta_t \frac{\delta\ell_{x_t}(W)}{\delta w(i, j )}
 \end{equation}
-
 where $\ell_(.)$ is a convex loss function. SGD is not the only
 gradient descent algorithm used. In fact, in order to
 improve the convergence of the neural networks many others algorithms were introduced,
@@ -131,7 +128,7 @@ and use it to choose the best hyper-parameters for a given model
 \cite{SnoekGP}. In general, the aim of optimizers is to minimize (or
 maximize) a scoring function respect its hyper-parameters, given
 $\mathcal{X}$ the set of hyper-parameters and $f(x)$ the scoring function of interest
-(i.e., auprc, auroc, rmse, binary loss etc.) we have: 
+(i.e., auPRC, auROC, rmse, binary loss etc.) we have: 
 \[ 
 x^* =  \argmin_{x \in \mathcal{X}} f(x) 
 \]
@@ -152,12 +149,10 @@ at: \url{https://keras-team.github.io/keras-tuner/documentation/tuners/}}.
 
 \section{Evaluation Metrics} \label{sec:methods_metrics}
 In this section the principal evaluation metrics used in this work are described. 
-% todo: loss funtion better in another section?
-In Section~\ref{sec:singletaskNN} we described Stochastic Gradient Descend algorithm. In order to update the parameters of the network in Equation~\ref{eq:sgd} we seen that we need to calculate the derivative of a convex loss function $\ell(.)$ respect the weights. In this work, in order to train both single and multi task neural networks, we utilized a well-known loss function, often used in binary classification, called \emph{binary cross-entropy}. Given $t \in \{0, 1\}$, the true binary label of a sample, and $s \in [0, 1]$, the probability score given by a predictor, we define binary cross-entropy as:
+In Section~\ref{sec:singletaskNN} we described Stochastic Gradient Descend algorithm. In order to update the parameters of the network in Equation~\ref{eq:sgd} we seen that we need to calculate the derivative of a convex loss function $\ell(.)$ respect the weights. In this work, in order to train both single and multi task neural networks, we utilized a well-known loss function, often used in binary classification, called \emph{binary cross-entropy}. Given $t \in \{0, 1\}$, the true binary label of a sample, and $s \in [0\..1]$, the probability score given by a predictor, we define binary cross-entropy as:
 \begin{equation}
-    \ell(t, s) = -tlog(s) - (1 - t)log(1 - s)
+    \ell(t, s) = -t\log(s) - (1 - t)\log(1 - s)
 \end{equation}
-
 In order to evaluate the performance of the models, many metrics can be used. Despite its simplicity, one of the most popular is \emph{Accuracy} defined as the proportion of the correct respect the total number of sample
 \begin{equation}
     \textrm{accuracy} = \frac{\#\{\textrm{correct samples}\}}{\#\{\textrm{total samples}\}}
@@ -181,5 +176,5 @@ this two metrics are often putted together computing the harmonic mean between t
 \begin{equation}
     \textrm{F1-score} = 2 \cdot \frac{\textrm{precision} \cdot \textrm{recall}}{\textrm{precision}+\textrm{recall}}
 \end{equation}
-Finally, we describe the two main metrics used to evaluate the performance of the models used in this work: \emph{Area Under the Receiver Operating Characteristics} (AUROC) and \emph{Area Under the Precision-Recall Curve} (AUPRC). 
-The AUROC is computed plotting the ROC curve with Recall on y-axis against False Positive Rate (FPS) on x-axis and calculating the area under it.  Similarly, AUPRC is computed plotting precision on y-axis against recall on x-axis and calculating the area under it. Since both precision and recall does not consider true negative sample, AUPRC is used when having good performance on negative example are not extremely important. 
+Finally, we describe the two main metrics used to evaluate the performance of the models used in this work: \emph{Area Under the Receiver Operating Characteristics} (auROC) and \emph{Area Under the Precision-Recall Curve} (auPRC). 
+The auROC is computed plotting the ROC curve with Recall on y-axis against False Positive Rate (FPS) on x-axis and calculating the area under it.  Similarly, auPRC is computed plotting precision on y-axis against recall on x-axis and calculating the area under it. Since both precision and recall does not consider true negative sample, auPRC is used when having good performance on negative example are not extremely important. 
