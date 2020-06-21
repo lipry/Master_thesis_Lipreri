@@ -1,19 +1,19 @@
 \section{Single-Task Feed-forward Neural Networks} \label{sec:singletaskNN}
 % TODO: citations!
 % TODO: check nn math 
-\emph{Feed-forward neural networks} (FNN), also known as multilayer perceptron, are artificial neural networks (ANN) that does not contains cycles. Despite many ANN models have failed the original attempts to mathematically reproduce the real structure of the brain they became an efficient model for pattern recognition. 
+\emph{Feed-forward neural networks} (FNN), also known as multilayer perceptron, are artificial neural networks (ANN) that do not contain cycles. Despite the fact that many ANN models have failed the original attempts to reproduce the real structure of the brain mathematically, they became an efficient model for pattern recognition. 
 
 Given a set $V$ of vertices and a set  $E\subseteq V\times V$ of edges, a feedforward neural network is described by a directed acyclic graph, $G =
 (V,E)$, and a weight function over the edges, $w : E \to \mathbf R$ ($w(i, j) = 0$
 for every $(i, j) \notin E$). The nodes of the graph correspond to neurons. Each
-single neuron is modeled as a simple scalar function, often called \emph{activation function},  $ \sigma : \mathbf R \to
+single neuron is modelled as a simple scalar function, often called \emph{activation function},  $ \sigma : \mathbf R \to
 \mathbf R$. FNNs are usually
 split in layers, that, is the nodes in $V$ are decomposed in disjoint sets $V_t$, $0\leq t\leq T$,
 and $V = \cup_{t = 0}^T V_t$. $V_0$ and
 $V_T$ are respectively called input and output layer; note that $|V_0| = d$ and
 $|V_T| = n$ where $d$ is the dimensionality of the input space and $n$ the
 dimensionality of the output space. Given the graph $G$, the map $w$ and the
-activation function $\sigma$ the network is able to calculate the function
+activation function $\sigma$, the network is able to calculate the function
 $f_{G,W,\sigma}$. For every node $i \in V$ a value $v_i$ is associated. Given $j
 \in V \setminus V_0$, for every $(i, j) \in E$ we define $w(j)$, the vector containing all
 the weights $w(i, j)$ and $v(j)$, the vector whose components are the values $v_i$. Now the
@@ -32,25 +32,23 @@ In Figure~\ref{fig:neural_network_example} we show an example of neural network 
 \label{fig:neural_network_example}
 \end{figure}
 
-Starting from the tuple $(G, \sigma)$, often called \emph{architecture of the network}, we can define the class of predictors: 
+Starting from the tuple $(G, \sigma)$, often called the \emph{architecture of the network}, we can define the class of predictors: 
 \[ \mathcal{F}_{G, \sigma} = \{ f_{G, \sigma, w} \mid w \textrm{ is a mapping from } E \textrm{ to } \mathbf R \} \]
 From an expressiveness standpoint, it is proved that with a FNN using a binary input $x \in \{-1, 1\}^d$ and $\mathrm{sign}$ as activation
 function $\sigma$, a single hidden layer network is able to
-implement every binary function $f: \{-1, +1\}^d \to \{-1, +1\}$. Note that in
-practical term the binary constraint is just a useful simplification because every real coordinates in a computer is represented
-by a bit string of length $b$. That is, a single hidden layer is
-enough to represent every Boolean functions. The downside is that
+implement every binary function $f: \{-1, +1\}^d \to \{-1, +1\}$. Note that in practical term the binary constraint is just a useful simplification because a bit string of length $b$ represents every real coordinate in a computer.  That is, a single hidden layer is
+enough to represent every Boolean function. The downside is that
 the number of neurons required must be exponential in the dimension
-of the input space. Currently there are no mathematical proofs about the construction of
-best network architecture for a given problem, nevertheless there are empirical evidences
-about the fact that is better a network with less neurons distributed in many layers (deep
+of the input space. Currently, there are no mathematical proofs about the construction of
+best network architecture for a given problem, nevertheless there are empirical evidence
+about the fact that is better a network with fewer neurons distributed in many layers (deep
 learning) rather than many neurons in a single layer. % TODO: citations
 
 To train the weights of a feed-forward neural network is usually
 used a gradient descent algorithm. The most common is called
 Stochastic Gradient Descent (SGD). For every randomly sampled
 example $x_t$ from the training set, the parameters $w(i, j)$ of the
-network are update using the following rule:
+network are updated using the following rule:
 \begin{equation} \label{eq:sgd} 
 w(i, j) \leftarrow w(i, j) -  \eta_t \frac{\delta\ell_{x_t}(W)}{\delta w(i, j )}
 \end{equation}
@@ -67,29 +65,29 @@ gradients of the losses with respect of the weights in SGD. Using the chain rule
 
 \section{Multi-Task Neural Networks}\label{sec:MTLsection}
 %TODO: soft and hard parameter sharing figures
-Multi-Task learning (MTL) is became increasing popular in recent years.
+Multi-Task learning (MTL) is becoming increasingly popular in recent years.
 Usually, to optimizing the predictions of a given task, a single model is
-tuned and trained. In this way good results can be achieved but many
-information that might come from related task are lost. MTL methods take
+tuned and trained. In this way, good results can be achieved but, any
+information that might come from related tasks are lost. MTL methods take
 the signal from related considered tasks by sharing the
 representation between them. The typical settings is to learning multiple
 task simultaneously using a shared representation, what is learned by one
-task can be helpful for the others tasks and vice versa \cite{Caruana97}.
+task can be helpful for the other tasks and vice versa \cite{Caruana97}.
 There are many motivation behind MTL: from a biological point of view is
-inspired by the way human brain learn (the knowledge of tasks can help us
+inspired by the way human brain learns (the knowledge of tasks can help us
 learning other tasks), from a pure machine learning perspective
 can be seen as a form of regularization in which the inductive bias is
 introduced by the auxiliary tasks \cite{Ruder2017}. While in the past MTL
-was more used in non-neural models, recently many deep learning algorithm 
-exploiting this approach were developed. In this context the two
+was more used in non-neural models, recently many deep learning algorithms
+exploiting this approach were developed. In this context, the two
 most used ways to perform multi-task learning are called \emph{soft
 parameters sharing} and \emph{hard parameter sharing}. In the former
-every tasks has his own set of parameters, the distance between this
+every task has his own set of parameters, the distance between this
 parameters is regularized in order to become similar and represent
-multiple tasks, noticeable example are \cite{duong-etal-2015-low} and
-\cite{yang2016trace}. In the latter instead a fixed number of hidden
-layers are shared between tasks and keeping several task specific output
-layers. In this works we have focused on hard-parameters sharing methods
+multiple tasks, Notable example are \cite{duong-etal-2015-low} and
+\cite{yang2016trace}. In the latter instead, a fixed number of hidden
+layers are shared between tasks and keeping several task-specific output
+layers. In this works, we have focused on hard-parameters sharing methods
 to implement our MTL networks. Given $N$ the number of tasks, it is proved
 that hard-parameters sharing reduce the risk of over-fitting $N$ times
 compared to task-specific models \cite{baxter1997}.
@@ -120,36 +118,36 @@ compared to task-specific models \cite{baxter1997}.
 In Section~\ref{sec:singletaskNN} and Section~\ref{sec:MTLsection} we
 described the theoretical aspects of training single-task and multi-task neural networks. In practical terms, due to the
 growing complexity of deep learning models, working with neural networks
-involves a proper choice of many hyper-parameters, such as the shape of
+involves a proper choice of many hyperparameters, such as the shape of
 the network architecture, the learning rate, or the regularizer weight
-decay. Over the years many hyper-parameters optimization algorithms were
-proposed. Among this, grid and random search \cite{BergstraB12} are very important examples. A more sophisticated model could be exploiting bayesian optimization
+decay. Over the years, many hyper-parameters optimization algorithms were
+proposed. Among this, grid and random search \cite{BergstraB12} are significant examples. A more sophisticated model could be exploiting Bayesian optimization
 and use it to choose the best hyper-parameters for a given model
-\cite{SnoekGP}. In general, the aim of optimizers is to minimize (or
+\cite{SnoekGP}. In general, optimizers aim to minimize (or
 maximize) a scoring function respect its hyper-parameters, given
 $\mathcal{X}$ the set of hyper-parameters and $f(x)$ the scoring function of interest
 (i.e., auPRC, auROC, rmse, binary loss etc.) we have: 
 \[ 
 x^* =  \argmin_{x \in \mathcal{X}} f(x) 
 \]
-the main difference between bayesian optimization in comparison with more
-traditional approaches is that bayesian optimization choose the next
-hyper-parameters set in an informed way. In fact, it keeps track of past evaluations
+the main difference between Bayesian optimization in comparison with more
+traditional approaches is that Bayesian optimization chooses the next
+hyper-parameters set in an informed way. It keeps track of past evaluations
 that use to build a probabilistic model called \emph{surrogate function}. This function is often built using a Gaussian process. That is, in every
 iteration the surrogate function is updated selecting, with a particular
 \emph{selection function} (i.e., Expected Improvement function), and
-evaluating a new set of hyper-parameters. On one hand bayesian methods
+evaluating a new set of hyper-parameters. On one hand Bayesian methods
 take more time smartly choosing the next set of hyper-parameters, on the other hand they make few iterations in total compared to grid and random search. 
-Recently Keras developer have released a new hyper parameter optimizer
+Recently Keras developer has released a new hyperparameter optimizer
 open-source library called Keras-tuner \footnote{Available on GitHub:
 \url{https://github.com/keras-team/keras-tuner}}
 \cite{omalley2019kerastuner}. It contains, among many others, an
-implementation of bayesian optimization\footnote{Documentation available
+implementation of Bayesian optimization\footnote{Documentation available
 at: \url{https://keras-team.github.io/keras-tuner/documentation/tuners/}}.
 
 \section{Evaluation Metrics} \label{sec:methods_metrics}
 In this section the principal evaluation metrics used in this work are described. 
-In Section~\ref{sec:singletaskNN} we described Stochastic Gradient Descend algorithm. In order to update the parameters of the network in Equation~\ref{eq:sgd} we seen that we need to calculate the derivative of a convex loss function $\ell(.)$ respect the weights. In this work, in order to train both single and multi task neural networks, we utilized a well-known loss function, often used in binary classification, called \emph{binary cross-entropy}. Given $t \in \{0, 1\}$, the true binary label of a sample, and $s \in [0\..1]$, the probability score given by a predictor, we define binary cross-entropy as:
+In Section~\ref{sec:singletaskNN} we described Stochastic Gradient Descend algorithm. In order to update the parameters of the network in Equation~\ref{eq:sgd} we have seen that we need to calculate the derivative of a convex loss function $\ell(.)$ respect the weights. In this work, in order to train both single and multi task neural networks, we utilized a well-known loss function, often used in binary classification, called \emph{binary cross-entropy}. Given $t \in \{0, 1\}$, the true binary label of a sample, and $s \in [0\..1]$, the probability score given by a predictor, we define binary cross-entropy as:
 \begin{equation}
     \ell(t, s) = -t\log(s) - (1 - t)\log(1 - s)
 \end{equation}
@@ -157,22 +155,22 @@ In order to evaluate the performance of the models, many metrics can be used. De
 \begin{equation}
     \textrm{accuracy} = \frac{\#\{\textrm{correct samples}\}}{\#\{\textrm{total samples}\}}
 \end{equation}
-It is easy to notice that the main drawback of accuracy is that, with unbalanced dataset, we can achieve a misleading higher values. Fortunately, during the years, more stable performance evaluation metrics were introduced in order to overcome accuracy disadvantages. In the contest of binary classification before describing this new metrics we must introduce four classification terms: 
+It is easy to notice that the main drawback of accuracy is that, with an unbalanced dataset, we can achieve misleading higher values. Fortunately, during the years, more stable performance evaluation metrics were introduced in order to overcome accuracy disadvantages. In the contest of binary classification, before describing these new metrics, we must introduce four classification terms: 
 \begin{itemize}
-\item \emph{True Positive} (TP): samples classified as positive where also the actual value is positive;
-\item \emph{False Positive} (FP): samples classified as positive where the actual values is negative;
-\item \emph{True Negative} (TN): samples classified as negative where also the actual values is negative;
-\item \emph{False Negative} (FN): samples classified as negative where the actual values is positive.
+\item \emph{True Positive} (TP): samples classified as positive where also the actual value are positive;
+\item \emph{False Positive} (FP): samples classified as positive where the actual values are negative;
+\item \emph{True Negative} (TN): samples classified as negative where also the actual values are negative;
+\item \emph{False Negative} (FN): samples classified as negative where the actual values are positive.
 \end{itemize}
-Of course, the aim of a good model is to have a very high rate of true positive and true negative. From this point of view, to evaluate the goodness of a model we can use \emph{precision} and \emph{recall}. Precision evaluate the ability of a model to correctly classify relevant results
+Of course, a good model aims to have a very high rate of true positive and true negative. From this point of view, to evaluate the goodness of a model we can use \emph{precision} and \emph{recall}. Precision evaluate the ability of a model to classify relevant results correctly 
 \begin{equation}
     \textrm{precision} = \frac{\textrm{TP}}{\textrm{TP}+\textrm{FP}}
 \end{equation}
-recall, instead, is the percentage of total relevant results correctly classified by your algorithm 
+recall, instead, is the percentage of total relevant results correctly classified by the algorithm 
 \begin{equation}
     \textrm{recall} = \frac{\textrm{TP}}{\textrm{TP}+\textrm{FN}}
 \end{equation}
-this two metrics are often putted together computing the harmonic mean between them, obtaining a new metric called \emph{F1-score}:
+this two metrics are often put together computing the harmonic mean between them, obtaining a new metric called \emph{F1-score}:
 \begin{equation}
     \textrm{F1-score} = 2 \cdot \frac{\textrm{precision} \cdot \textrm{recall}}{\textrm{precision}+\textrm{recall}}
 \end{equation}

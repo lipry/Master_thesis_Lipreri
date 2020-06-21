@@ -13,7 +13,7 @@ for CRRs identification.
 Two of the most important type of DNA cis-regulatory regions are promoters
 and enhancers. Promoters are 100–1000 base pairs (bp) long DNA sequences
 usually located at the beginning of the transcription initiation site.
-They defines where the RNA polymerase should start the transcription of a
+They define where the RNA polymerase should start the transcription of a
 gene. Enhancers are 50 to 1500 bp DNA sequences that, when bound to
 special proteins (Transcription Factors or TF), augment the transcription
 of the associated gene.
@@ -22,12 +22,11 @@ of the associated gene.
 % TODO: RILEGGERE
 % TODO: scrivere dove spiego supervised neural network single task e dove spiego gli algoritmi multi task learning.
 With the rise of \emph{next-generation sequences} (NGS) techniques, which are
-capable of identify various aspects of genomes, we have seen the generation of an incredible amount of biological information. This data are usually
-collected by specialized consortia. Among these, one can mention: the ENCODE
+capable of identifying various aspects of genomes, we have seen the generation of an incredible amount of biological information. Specialized consortia usually collect this data. Among these, one can mention: the ENCODE
 (Encyclopedia of DNA Elements) Consortium \cite{ENCODE_data}, which aims at building a list of functional elements in the human genome; Roadmap Epigenomics Program \cite{ROADMAP} with the aim of creating an epigenomic atlas for primary cells and tissues in human and finally FANTOM5 Project \cite{FANTOM_data} which is trying to uncover transcriptional regulatory networks based on transcript initiation positions.
 
 This volume of NGS data has allowed the development of new computational
-methods with particular focus on both unsupervised and supervised machine
+methods with a particular focus on both unsupervised and supervised machine
 learning approaches. An extensive review of these techniques was compiled by Li et al. \cite{LiMLReview}. The first work in this direction, motivated by small sets of reliable annotations, used unsupervised methods. Among these, chromHMM \cite{ernst2012chromhmm}
 and Segway \cite{HoffmanSegway} that use respectively Hidden Markov Models
 (HMM) and Dynamic Bayesian Network (DBN) to discover chromatin states are the most important contributions. Given the low accuracy of the above mentioned unsupervised models, the researchers focused their attention on using additional experimental features and
@@ -42,7 +41,7 @@ training a support vector machine with this data is put forward.
 
 The advancement of deep learning made it possible to capture
 high-level knowledge from data. This new approach has improved
-the state-of-the-art of many research areas such as speech recognition and
+the state-of-the-art of many research areas, such as speech recognition and
 computer
 vision \cite{lecun2015deeplearning}. Bioinformaticians have
 applied deep learning techniques in many ways, ranging from predicting the impact
@@ -57,19 +56,18 @@ structure \cite{LiYifengDFS}. Convolutional Neural Networks (CNN) \cite{LecunCNN
 MartinezCNN}, a powerful deep learning algorithm for modelling
 labelled sequential data was recently applied in DeepBind
 \cite{AlipanahiDeepBind} in order to detect the Transcription Factor
-Binding Site (TFBS), .
+Binding Site (TFBS).
 Another step forward in distinguishing CRRs was accomplished by Wassermann
-and his group in DECRES \cite{WassermannDECRES}. Basically, they achieved
+and his group in DECRES \cite{WassermannDECRES}. They achieved
 excellent results using FANTOM promoters and enhancers (that provide the
 largest experimentally defined collection of CRRs) with the ENCODE project
-genome-wide feature data, such as histone modifications, TF binding, RNA
-transcripts, chromatin accessibility, and chromatin interactions, to
-training supervised feedforward neural networks in order to detect
-regulatory regions.
+genome-wide feature data to
+training supervised feed-forward neural networks in order to detect
+regulatory regions. The data used contains histone modifications, TF binding, RNA transcripts, chromatin accessibility, and chromatin interactions.
 
 %- previous works for MTL methods
-In this work we tried to make a step forward in predicting cis-regulatory
+In this work, we tried to make a step forward in predicting cis-regulatory
 regions using a new deep learning approach known as Multi-Task Learning
-(MTL). Despite MTL has little been used in bioinformatics,
+(MTL). Although MTL has little been used in bioinformatics,
 especially in distinguish CRRs, a lot of MTL variants have been successfully applied to many
 fields ranging from natural language processing \cite{CollobertWeston2008} to speech recognition \cite{Deng2013}, computer vision \cite{Girshick2015} and drug discovery \cite{Ramsundar2015}. An extensive overview of multi-task learning in deep neural network was written by Ruder \cite{Ruder2017}. Section~\ref{sec:MTLsection} provides a detailed explanation of Hard parameter sharing neural networks which is the MTL approach used in this work.

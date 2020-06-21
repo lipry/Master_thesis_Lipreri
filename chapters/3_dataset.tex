@@ -16,26 +16,25 @@ The set of cell lines $L$ includes:
 \begin{description} 
 \item A549 a lung carcinoma cell line derived from old Caucasian male;
 \item GM12878 a lymphoblastoid cell line produced from the blood of a female donor with northern and western European ancestry by EBV transformation;
-\item H1 an human embryonic stem cell line; 
+\item H1 a human embryonic stem cell line; 
 \item HEK293 a human embryonic kidney cell line;
 \item HEPG2 a cell line derived from a male patient with liver carcinoma;
-\item K562 an immortalized cell line produced from a female patient with chronic myelogenous leukemia;
+\item K562 an immortalized cell line produced from a female patient with chronic myelogenous leukaemia;
 \item MCF7 a mammary gland adenocarcinoma cell line.
 \end{description}
-For every cell lines $\ell \in L$, the set of sequences $S_\ell$ contains the genomics locations of enhancers and promoters. $Y$ contains the four classes of labeled regions, including \emph{active enhancers} (A-E), \emph{active promoters} (A-P), \emph{inactive enhancers} (I-E), \emph{inactive promoters} (I-P). A-E and I-E labels are defined as FANTOM enhancers with $TPM>0$ (tags per million) and $TPM=0$, respectively. A-P and I-P labels, instead, are promoters with $TPM>5$ and $TPM=0$. 
+For every cell lines $\ell \in L$, the set of sequences $S_\ell$ contains the genomics locations of enhancers and promoters. $Y$ contains the four classes of labelled regions, including \emph{active enhancers} (A-E), \emph{active promoters} (A-P), \emph{inactive enhancers} (I-E), \emph{inactive promoters} (I-P). A-E and I-E labels are defined as FANTOM enhancers with $TPM>0$ (tags per million) and $TPM=0$, respectively. A-P and I-P labels, instead, are promoters with $TPM>5$ and $TPM=0$. 
 % Todo: Ultima frase presa da spiegazione di paper wasserman, cos'è TPM?! lo spiego?
 
 %TODO: sistemare con riferimenti per uso media e mediana per l'imputer
 For every cell line $\ell \in L$, the number of features $| F_\ell |$ are reported in Table~\ref{tab:featuressize}. It can be noted that, some cell lines, such as K562, HepG2 and HEK293 contains more than 200 features. In Section~\ref{sec:featureselection} we reported the approach followed to select a subset of discriminative features.
 Note that, for every cell lines $\ell \in L$, in vitro experiments are
-performed for every nucleotides of sequences. Consequently the pure ENCODE
+performed for every nucleotide of sequences. Consequently, the pure ENCODE
 data, for every sequence $s \in S_\ell$ and epigenomic feature $f \in
 F_\ell$ (e.g., POLR2A), are represented by a $|s|$-length vectors of real
 numbers. Those values must be summarized in a single metrics. The most
 common used metrics are mean, variance and maximum, we choose to use
-maximum. Moreover we have a very small percentage (less than 1\%) of
-missing values; thus, we used as substitute the median of the others
-values.
+maximum. Moreover, we have a tiny percentage (less than 1\%) of
+missing values. Thus, we substitute it with the median of the others values.
 \begin{table}[t]
 \centering
 \begin{tabular}{|l|l|l|}
@@ -53,7 +52,7 @@ MCF7               & 101 & 19                 \\ \hline
 \label{tab:featuressize}
 \end{table}
 \section{Computational Tasks} \label{sec:computational_tasks}
-To evaluate the performance of our models in discriminating the different cis-regulatory regions labels $Y$ we proposed a group of \emph{computational problems}. Given the set of labels $Y$, a computational problem is defined as a set of binary tuples $P \subseteq Y \times Y$; In particular $P$ contains the following tuples: 
+To evaluate the performance of our models in discriminating the different cis-regulatory regions labels $Y$, we proposed a group of \emph{computational problems}. Given the set of labels $Y$, a computational problem is defined as a set of binary tuples $P \subseteq Y \times Y$. In particular, $P$ contains the following tuples: 
 \begin{itemize}
     \item Active Enhancers vs Active Promoters (A-E vs A-P);
     \item Active Promoters vs Inactive Promoters (A-P vs I-P);
@@ -61,25 +60,25 @@ To evaluate the performance of our models in discriminating the different cis-re
     \item Inactive Enhancers vs Inactive Promoters (I-E vs I-P); 
     \item Active Enhancers and Active Promoters vs Background (A-E+A-P vs BG).
 \end{itemize}
-In terms of classification, we considered the first and the second element of every items as the positive and negative training classes. For instance, A-E and A-P are considered as positive and negative example, respectively. The last item is built by joining in positive class A-E and A-P labels and in negative class all the other labels. In other terms BG is composed by I-E and I-P labels. The performance of every computational problems are evaluated for every cell line $\ell \in L$. Thus we define a \emph{tasks} as a pair $p \in P \times L$. 
+In terms of classification, we considered the first and the second element of every item as the positive and negative training classes. For instance, A-E and A-P are considered as positive and negative example, respectively. The last item is built by joining in positive class A-E and A-P labels and in negative class all the other labels. In other terms, BG is composed by I-E and I-P labels. The performance of every computational problem are evaluated for every cell line $\ell \in L$. Thus, we define a \emph{task} as a pair $p \in P \times L$. 
 
 \section{Feature Selection} \label{sec:featureselection}
-As previously described, in the problem at the hand we have different set of epigenomic features $F_\ell$ for every cell line $\ell \in L$. As shown in Table~\ref{tab:featuressize}, some cell lines have a considerable size set of features, so many features might arise to a performance degradation of the models due to, for instance, to over-fitting. During the years many methods were developed to deal with large dimensional features sets. Iz this section we provide a detailed explanation of the feature selection approach followed in this work and the results it produced. 
+As previously described, in the problem at the hand we have different sets of epigenomic features $F_\ell$ for every cell line $\ell \in L$. As shown in Table~\ref{tab:featuressize}, some cell lines have a considerable size set of features. So many features might arise to model performance degradation due to, for instance, over-fitting. During the years many methods were developed to deal with large dimensional features sets. In this section we provide a detailed explanation of the feature selection approach followed in this work and the results it produced. 
 
-Firstly, we tried to understand, for every cell lines, the number of features to select. To do this we use a well-known algorithm called Recursive Feature Elimination (RFE) \cite{VapnikRFE}. Given a model that assign weights to the features, RFE use them to recursively remove the least important feature until the last one. In this way, for every iterations $i$, we obtain a subset of features $F_{\ell}^{i} \subseteq F_\ell$. Note that the obtained subset are nested, $F_{\ell}^{1}  \subseteq  F_{\ell}^{2} \subseteq \cdots \subseteq F_{\ell}$. In order to obtain more accurate results, every RFE run is cross-validated. For every tasks $p \in P \times L$ and for every feature subset $F_\ell^i$ we computed the \emph{f1-score} function values against the number of best features. The performance of the model should increase with the increasing of the best features selected until a certain limit the best number of feature and reach a plateau or in some cases decrease. The maximum of the function can be considered the optimal number of feature to select. Thus, given $i^{*}$ the index of the best subset iteration, the optimal number of feature $|F_\ell^{i^{*}}|$ for a certain task could be selected looking at the maximum of this function. In Figure~\ref{fig:feats_plot} we report the obtained results, every plot consider a cell lines and every curve is a particular task $p$, the colored dotted vertical lines indicate respectively the maximum \emph{f1-score} for a given task. The black vertical line, instead, is the average number of feature between every computationl problem. 
+Firstly, we tried to understand, for every cell lines, the number of features to select. To do this, we use a well-known algorithm called Recursive Feature Elimination (RFE) \cite{VapnikRFE}. Given a model that assign weights to the features, RFE uses them to remove the least important feature recursively until the last one. In this way, for every iteration $i$, we obtain a subset of features $F_{\ell}^{i} \subseteq F_\ell$. Note that the obtained subset are nested, $F_{\ell}^{1}  \subseteq  F_{\ell}^{2} \subseteq \cdots \subseteq F_{\ell}$. In order to obtain more accurate results, every RFE run is cross-validated. For every tasks $p \in P \times L$ and every feature subset $F_\ell^i$ we computed the \emph{f1-score} function values against the number of best features. The performance of the model should increase with the increasing of the best features selected until a certain limit, the best number of feature, and reach a plateau or, in some cases, decrease. The maximum of the function can be considered the optimal number of feature to select. Thus, given $i^{*}$ the index of the best subset iteration, the optimal number of feature $|F_\ell^{i^{*}}|$ for a certain task could be selected looking at the maximum of this function. In Figure~\ref{fig:feats_plot} we report the obtained results. Every plot consider a cell lines and every curve is a particular task $p$, the colored dotted vertical lines indicate the maximum \emph{f1-score} for a given task. The black vertical line, instead, is the average number of feature between every computational problem. 
 
-After fixing the number of features that should be considered for every cell lines (Table~\ref{tab:featuressize}) we tried to understand which features must be selected. Many methods could be found in literature in order to choose an optimal subset of features of given size. They are mainly divided into: \emph{filters} methods that rank features computing correlation coefficients and \emph{wrapper} methods that use models to score subsets of features \cite{Guyon}. Every approach has its own advantages, in order to have a proper feature selection we choose to join some selected approaches together, in particular:
+After fixing the number of features that should be considered for every cell lines (Table~\ref{tab:featuressize}) we tried to understand which features must be selected. Many methods could be found in literature in order to choose an optimal subset of features of a given size. They are mainly divided into \emph{filters} methods, that rank features computing correlation coefficients, and \emph{wrapper} methods, that use models to score subsets of features \cite{Guyon}. Every approach has its advantages. In order to have a proper feature selection we choose to join some selected approaches together, in particular:
 \begin{itemize}
-    \item \textit{Correlations with target}: it is a filter based method. Pearson correlation is computed for every features $f \in F_\ell$ against the target labels. The correlations values are used to ranking the features;
+    \item \textit{Correlations with the target}: it is a filter based method. Pearson correlation is computed for every features $f \in F_\ell$ against the target labels. The correlations values are used to rank the features;
     \item \textit{Random Forest Wrapper}: the features are ranked using the \emph{Gini importance} \cite{giniimportance} of the features calculated during the training of a Random Forest \cite{breiman2001random}; 
     \item \textit{Logistic Regression Wrapper}: similar to the Random Forest Wrapper but the features are ranked using the coefficient of the features in the decision function of a trained Linear Regressor.
-    \item \emph{Recursive Feature Elimination}: in addition to using RFE for selecting the optimal number of features, we also used it to select an optimal subset of given dimension. 
+    \item \emph{Recursive Feature Elimination}: in addition to using RFE for selecting the optimal number of features, we also used it to select an optimal subset of a given dimension. 
 \end{itemize}
-For every cell lines $\ell \in L$ and every task $p \in P$ we build a binary matrix $I_\ell(|F_\ell|, 4)$, which have the features on the rows and the described selection methods on the columns. For every rows $f$ and every columns $m$ the element $i_{fm}$ of $I$ is defined as follow: 
+For every cell lines $\ell \in L$ and every task $p \in P$ we build a binary matrix $I_\ell(|F_\ell|, 4)$, which has the features on the rows and the described selection methods on the columns. For every row $f$ and every column $m$ the element $i_{fm}$ of $I$ is defined as follow: 
 \[
     i_{fm} = \begin{cases} 1 & \mbox{if } f \mbox{ is selected by method } m \\ 0 & \mbox{otherwise} \end{cases}
 \]
-the number of ones in every rows $f$ give us a measure of the importance of each feature. The obtained values are averaged for every tasks $p \in P \times L$. 
+the number of ones in every rows $f$ gives us a measure of the importance of each feature. The obtained values are averaged for every task $p \in P \times L$. 
 % TODO: put results in appendix?!
 
 \begin{figure}[!htb]
@@ -128,5 +127,5 @@ the number of ones in every rows $f$ give us a measure of the importance of each
 
 
 \section{t-SNE Decomposition}
-In order to have a general idea of the points separability we tried to  project them in a 2-dimensional space. Among many dimensionality reduction algorithm t-SNE were chosen. t-Distributed Stochastic Neighbor Embedding (t-SNE) \cite{vanDerMaaten2008} is an improvement of standard SNE \cite{HintonSNE} that allow a better cost function optimization. So, for every given task $p$, we  computed the t-SNE of every cell lines. 
-In Appendix~\ref{appendix:tsne} we report the results of analysis, every figure is a computational problem and every plot is a cell line $\ell$. We can notice that with the exception of A-E vs A-P (Figure~\ref{fig:tsneAEvsAP}) and A-E+A-P vs BG (Figure~\ref{fig:tsneAE+APvsBG}), respectively the least and the most numerous computational problems, all the other plots highlight evident clusters between positive (in blue) and negative (in red) labels. 
+In order to have a general idea of the points separability, we tried to  project them in a 2-dimensional space. Among many dimensionality reduction algorithms, t-SNE were chosen. t-Distributed Stochastic Neighbor Embedding (t-SNE) \cite{vanDerMaaten2008} is an improvement of standard SNE \cite{HintonSNE} that allow a better cost function optimization. So, for every given task $p$, we  computed the t-SNE of every cell lines. 
+In Appendix~\ref{appendix:tsne} we report the results of the analysis, every figure is a computational problem, and every plot is a cell line $\ell$. We can notice that except for A-E vs A-P (Figure~\ref{fig:tsneAEvsAP}) and A-E+A-P vs BG (Figure~\ref{fig:tsneAE+APvsBG}), respectively the least and the most numerous computational problems, all the other plots highlight evident clusters between positive (in blue) and negative (in red) labels. 
