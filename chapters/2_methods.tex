@@ -6,7 +6,7 @@
 Given a set $V$ of vertices and a set  $E\subseteq V\times V$ of edges, a feedforward neural network is described by a directed acyclic graph, $G =
 (V,E)$, and a weight function over the edges, $w : E \to \mathbf R$ ($w(i, j) = 0$
 for every $(i, j) \notin E$). The nodes of the graph correspond to neurons. Each
-single neuron is modelled as a simple scalar function, often called \emph{activation function},  $ \sigma : \mathbf R \to
+single neuron includes an \emph{activation function},  $ \sigma : \mathbf R \to
 \mathbf R$. FNNs are usually
 split in layers, that, is the nodes in $V$ are decomposed in disjoint sets $V_t$, $0\leq t\leq T$,
 and $V = \cup_{t = 0}^T V_t$. $V_0$ and
@@ -26,7 +26,7 @@ vector $f(x)$ is computed as follow:
 In Figure~\ref{fig:neural_network_example} we show an example of neural network architecture \cite{ShwartzUnderstadningML, BishopML}.
 \begin{figure}[ht]
 \includegraphics[width=\textwidth]{neural_network_example.png}
-\caption{Deep Neural Network architecture example, it has a 3-dimensional input layer
+\caption{Neural Network architecture example, it has a 3-dimensional input layer
 ($V_0$), one hidden layer ($V_1$) and a single neuron output layer ($V_2$)
 \cite{ShwartzUnderstadningML}.} 
 \label{fig:neural_network_example}
@@ -40,7 +40,7 @@ implement every binary function $f: \{-1, +1\}^d \to \{-1, +1\}$. Note that in p
 enough to represent every Boolean function. The downside is that
 the number of neurons required must be exponential in the dimension
 of the input space. Currently, there are no mathematical proofs about the construction of
-best network architecture for a given problem, nevertheless there are empirical evidence
+best network architecture for a given problem, nevertheless there is empirical evidence
 about the fact that is better a network with fewer neurons distributed in many layers (deep
 learning) rather than many neurons in a single layer. % TODO: citations
 
@@ -72,19 +72,44 @@ information that might come from related tasks are lost. MTL methods take
 the signal from related considered tasks by sharing the
 representation between them. The typical settings is to learning multiple
 task simultaneously using a shared representation, what is learned by one
-task can be helpful for the other tasks and vice versa \cite{Caruana97}.
+task can be helpful for the other tasks and vice versa \cite{Caruana97}. 
+The mechanism underlining MTL, firstly described by \cite{Caruana97}, are reported in this Section.
 There are many motivation behind MTL: from a biological point of view is
 inspired by the way human brain learns (the knowledge of tasks can help us
 learning other tasks), from a pure machine learning perspective
 can be seen as a form of regularization in which the inductive bias is
-introduced by the auxiliary tasks \cite{Ruder2017}. While in the past MTL
-was more used in non-neural models, recently many deep learning algorithms
-exploiting this approach were developed. In this context, the two
+introduced by the auxiliary tasks \cite{Ruder2017}. 
+
+Multi-tasks learning introduce an \emph{implicit data augmentation}, that is, increase the sample size used to train the model. Furthermore, defining A and B as two related tasks with noise, learning A and B jointly gives a better representation due to the noise patterns averaging.
+In addition, MTL permits the model to \emph{focus attention} on the feature that really matter. This behaviour, that could be considered as an implicit feature selection, is possible because other tasks could give additional evidence about relevance (or irrelevance) of features. 
+
+MTL introduces the concept of \emph{eavesdropping}. The idea, introduced using hints by \cite{AbuMostafa1990}, is that we can allow the model to learn a features subset G, that is harder to learn from A, using another task B. 
+
+In many cases, MTL permits to easily generalize to new future tasks. In fact, an hypothesis space that perform well for a large number of tasks will probably perform well for new tasks from the same environments \cite{Ruder2017}. 
+
+While in the past MTL
+was more used in non-neural models, recently many deep learning algorithms exploiting this approach were developed. We will briefly describe the two main ideas that have been pervasive in non-neural MTL models and then we will explain the neural networks approach.
+
+The first important concept in MTL non-neural model is \emph{block-sparse regularization}. Consider $T$ tasks. Every tasks $t$ have a model $m_t$ with  a$d$-length parameters vectors $a_t$: 
+\begin{equation}
+a_t = \begin{bmatrix}
+           a_{1, t} \\
+           a_{2, t} \\
+           \vdots \\
+           a_{d, t}
+         \end{bmatrix}^\mathsf{T}
+\end{equation}
+using these vectors we can form a matrix $A \in \mathbf{R}^{d \times T}$ stacking it columns by columns. Note that the rows of the matrix are the features considered while the columns are the models. Many works aimed to generalize the concept of regularization over the entire matrix $A$. For instance calculating $\ell_q$ norm for every rows and then compute $\ell_1$ norm over the obtained vector \cite{Ruder2017, Zhang2008, ArgyriouPontil2008, YuanLin2006}.  
+
+The models just described assume a strong relation between the tasks. However, in a real worlds scenario, some tasks could not be closely related each others. Sharing information between unrelated tasks could lead the negatively the performance of the model, this phenomenon is often called \emph{negative transfer}. 
+Many methods were introduced to overcome negative transfer. \cite{Evgeniou2005}, for instance, impose a clustering constraint that penalizing the norm and and the variance of our task columns vector.
+
+In this context, the two
 most used ways to perform multi-task learning are called \emph{soft
 parameters sharing} and \emph{hard parameter sharing}. In the former
 every task has his own set of parameters, the distance between this
 parameters is regularized in order to become similar and represent
-multiple tasks, Notable example are \cite{duong-etal-2015-low} and
+multiple tasks. Notable examples are \cite{duong-etal-2015-low} and
 \cite{yang2016trace}. In the latter instead, a fixed number of hidden
 layers are shared between tasks and keeping several task-specific output
 layers. In this works, we have focused on hard-parameters sharing methods
@@ -96,18 +121,18 @@ compared to task-specific models \cite{baxter1997}.
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.7\linewidth]{MTL_hard.png}
-  \caption{A subfigure}
   \label{fig:sub1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1.2\linewidth]{MTL_soft}
-  \caption{A subfigure}
   \label{fig:sub2}
 \end{subfigure}
-\caption{A figure with two subfigures}
+\caption{Hard parameter sharing, on the left, and soft parameter sharing, on the right, for multi-task learning in deep neural networks.}
 \label{fig:test}
 \end{figure}
+
+As already mentioned, soft and hard parameters sharing are the two main used MTL methods in deep learning. Despite this, many works tried to develop better mechanisms for MTL in deep neural networks. Among them we can mention deep relationship networks \cite{NIPS2017_6757}, fully-adaptive feature sharing \cite{fullyadaptive}, cross-stitch networks \cite{crossstichnet}, low supervision \cite{sogaard-goldberg-2016-deep}, joint many-task model \cite{hashimoto-etal-2017-joint}, weighting losses with uncertainty \cite{Kendall}, tensor factorization for MTL \cite{Yang2017DeepMR} and, finally, sluice networks \cite{Ruder2017SluiceNL}.
 
 \section{Gaussian Process for Hyper-parameters Tuning of the Models}
 \label{sec:gaussianprocess}
@@ -147,7 +172,7 @@ at: \url{https://keras-team.github.io/keras-tuner/documentation/tuners/}}.
 
 \section{Evaluation Metrics} \label{sec:methods_metrics}
 In this section the principal evaluation metrics used in this work are described. 
-In Section~\ref{sec:singletaskNN} we described Stochastic Gradient Descend algorithm. In order to update the parameters of the network in Equation~\ref{eq:sgd} we have seen that we need to calculate the derivative of a convex loss function $\ell(.)$ respect the weights. In this work, in order to train both single and multi task neural networks, we utilized a well-known loss function, often used in binary classification, called \emph{binary cross-entropy}. Given $t \in \{0, 1\}$, the true binary label of a sample, and $s \in [0\..1]$, the probability score given by a predictor, we define binary cross-entropy as:
+In Section~\ref{sec:singletaskNN} we described Stochastic Gradient Descend algorithm. In order to update the parameters of the network in Equation~\ref{eq:sgd} we have seen that we need to calculate the derivative of a convex loss function $\ell(.)$ with respect to the weights. In this work, in order to train both single and multi task neural networks, we utilized a well-known loss function, often used in binary classification, called \emph{binary cross-entropy}. Given $t \in \{0, 1\}$, the true binary label of a sample, and $s \in [0\..1]$, the probability score given by a predictor, we define binary cross-entropy as:
 \begin{equation}
     \ell(t, s) = -t\log(s) - (1 - t)\log(1 - s)
 \end{equation}

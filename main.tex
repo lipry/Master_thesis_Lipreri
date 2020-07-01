@@ -1,9 +1,7 @@
-\documentclass[12pt]{report}
-\renewcommand{\baselinestretch}{1.5} 
+\documentclass[a4paper, 12pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{biblatex}
-\usepackage{amssymb}
-\usepackage{amsmath}
+\usepackage{amssymb, amsmath}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{subcaption}
@@ -13,6 +11,8 @@
 \usepackage{multicol}
 \usepackage{longtable}
 \usepackage{supertabular}
+\usepackage{setspace}
+\usepackage{tesi}
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -21,17 +21,43 @@
 \graphicspath{{./images/}}
 
 \addbibresource{refs.bib}
-
-\title{Evaluating multi-task deep learning methods for genome-wide prediction of cis-regulatory regions}
-\author{Fabio Lipreri}
-\date{May 2020}
-% TODO: fix first page
-
+%
+%			TITOLO
+%    
+\renewcommand{\baselinestretch}{1.5}
 \begin{document}
+\title{Evaluating multi-task deep learning methods for genome-wide prediction of cis-regulatory regions}
+\author{Fabio LIPRERI}
+\dept{Corso di Laurea in \dots} 
+\anno{2019-2020}
+\matricola{123456}
+\relatore{Prof. Alan TURING}
+\correlatore{Dr. Richard STEVENS}
+%
+%        \submitdate{month year in which submitted to GPO}
+%		- date LaTeX'd if omitted
+%	\copyrightyear{year degree conferred (next year if submitted in Dec.)}
+%		- year LaTeX'd (or next year, in December) if omitted
+%	\copyrighttrue or \copyrightfalse
+%		- produce or don't produce a copyright page (false by default)
+%	\figurespagetrue or \figurespagefalse
+%		- produce or don't produce a List of Figures page
+%		  (false by default)
+%	\tablespagetrue or \tablespagefalse
+%		- produce or don't produce a List of Tables page
+%		  (false by default)
+% 
+%			DEDICA
+%
+\beforepreface
+\prefacesection{Abstract}
+\input{chapters/abstract}
+\afterpreface
 
-\maketitle
 
-\tableofcontents{}
+%\maketitle
+
+%\tableofcontents{}
 
 \chapter{Introduction}
 \input{chapters/1_introduction}
@@ -43,7 +69,7 @@
 \input{chapters/3_dataset}
 
 \chapter{Experimental Setup}
-\input{chapters/4_experimental_setup}
+\input{chapters/4_experimental_setup} \label{cap:experimental_seup}
 
 \chapter{Results}
 \input{chapters/5_results}
@@ -63,6 +89,10 @@
 \input{chapters/appendix/features_tables/HEPG2_features}
 \input{chapters/appendix/features_tables/K562_features}
 \input{chapters/appendix/features_tables/MCF7_features}
+
+\chapter{Results Tables}
+\label{appendix:results_tables}
+\input{chapters/appendix/results_tables}
 
 \printbibliography
 
