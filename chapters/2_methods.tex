@@ -45,7 +45,7 @@ about the fact that is better a network with fewer neurons distributed in many l
 learning) rather than many neurons in a single layer. % TODO: citations
 
 To train the weights of a feed-forward neural network is usually
-used a gradient descent algorithm. The most common is called
+used a gradient descent algorithm. The most commonly is called
 Stochastic Gradient Descent (SGD). For every randomly sampled
 example $x_t$ from the training set, the parameters $w(i, j)$ of the
 network are updated using the following rule:
@@ -59,7 +59,7 @@ the most popular were \emph{mini-batch gradient descent}, \emph{nesterov}, \emph
 \cite{RuderGDOpt}. 
 
 An algorithm called \emph{back-propagation} is used to compute the
-gradients of the losses with respect of the weights in SGD. Using the chain rule of derivation the algorithm compute the the gradient with a layer by layer backward iteration
+gradients of the losses with respect of the weights in SGD. Using the chain rule of derivation the algorithm compute the gradient with a layer by layer backward iteration
 \cite{HintonBackProp}.
  
 
@@ -88,9 +88,9 @@ MTL introduces the concept of \emph{eavesdropping}. The idea, introduced using h
 In many cases, MTL permits to generalize easily to new future tasks. In fact, an hypothesis space that performs well for a large number of tasks will probably perform well for new tasks from the same environments \cite{Ruder2017}. 
 
 While in the past MTL
-was more used in non-neural models, recently many deep learning algorithms exploiting this approach were developed. We will briefly describe the two main ideas that have been pervasive in non-neural MTL models and then we will explain the neural networks approach.
+was more used in non-neural models, recently many deep learning algorithms exploiting this approach were developed. We will briefly describe the two main ideas that have been pervasive in non-neural MTL models, and then we will explain the neural networks approach.
 
-The first important concept in MTL non-neural model is \emph{block-sparse regularization}. Consider $T$ tasks. Every tasks $t$ have a model $m_t$ with  a$d$-length parameters vectors $a_t$: 
+The first important concept in MTL non-neural model is \emph{block-sparse regularization}. Consider $T$ tasks. Every task $t$ have a model $m_t$ with  a$d$-length parameters vectors $a_t$: 
 \begin{equation}
 a_t = \begin{bmatrix}
            a_{1, t} \\
@@ -106,7 +106,7 @@ Many methods were introduced to overcome negative transfer. \cite{Evgeniou2005},
 
 In this context, the two
 most used ways to perform multi-task learning are called \emph{soft
-parameters sharing} and \emph{hard parameter sharing}. In the former
+parameters sharing} and \emph{hard parameter sharing}. In the former,
 every task has his own set of parameters, the distance between these
 parameters is regularized in order to become similar and represent
 multiple tasks. Notable examples are \cite{duong-etal-2015-low} and
@@ -161,8 +161,8 @@ hyper-parameters set in an informed way. It keeps track of past evaluations
 that use to build a probabilistic model called \emph{surrogate function}. This function is often built using a Gaussian process. That is, in every
 iteration the surrogate function is updated selecting, with a particular
 \emph{selection function} (i.e., Expected Improvement function), and
-evaluating a new set of hyper-parameters. On one hand Bayesian methods
-take more time smartly choosing the next set of hyper-parameters, on the other hand they make few iterations in total compared to grid and random search. 
+evaluating a new set of hyper-parameters. On the one hand, Bayesian methods
+take more time smartly choosing the next set of hyper-parameters. On the other hand, they make few iterations in total compared to grid and random search. 
 Recently Keras developer has released a new hyperparameter optimizer
 open-source library called Keras-tuner \footnote{Available on GitHub:
 \url{https://github.com/keras-team/keras-tuner}}
@@ -172,7 +172,7 @@ at: \url{https://keras-team.github.io/keras-tuner/documentation/tuners/}}.
 
 \section{Evaluation Metrics} \label{sec:methods_metrics}
 In this section the principal evaluation metrics used in this work are described. 
-In Section~\ref{sec:singletaskNN} we described Stochastic Gradient Descend algorithm. In order to update the parameters of the network in Equation~\ref{eq:sgd} we have seen that we need to calculate the derivative of a convex loss function $\ell(.)$ with respect to the weights. In this work, in order to train both single and multi task neural networks, we utilized a well-known loss function, often used in binary classification, called \emph{binary cross-entropy}. Given $t \in \{0, 1\}$, the true binary label of a sample, and $s \in [0\..1]$, the probability score given by a predictor, we define binary cross-entropy as:
+In Section~\ref{sec:singletaskNN} we described Stochastic Gradient Descend algorithm. In order to update the parameters of the network in Equation~\ref{eq:sgd} we have seen that we need to calculate the derivative of a convex loss function $\ell(.)$ with respect to the weights. In this work, in order to train both single and multi-tasks neural networks, we utilized a well-known loss function, often used in binary classification, called \emph{binary cross-entropy}. Given $t \in \{0, 1\}$, the true binary label of a sample, and $s \in [0\..1]$, the probability score given by a predictor, we define binary cross-entropy as:
 \begin{equation}
     \ell(t, s) = -t\log(s) - (1 - t)\log(1 - s)
 \end{equation}
@@ -187,7 +187,7 @@ It is easy to notice that the main drawback of accuracy is that, with an unbalan
 \item \emph{True Negative} (TN): samples classified as negative where also the actual values are negative;
 \item \emph{False Negative} (FN): samples classified as negative where the actual values are positive.
 \end{itemize}
-Of course, a good model aims to have a very high rate of true positive and true negative. From this point of view, to evaluate the goodness of a model we can use \emph{precision} and \emph{recall}. Precision evaluate the ability of a model to classify relevant results correctly 
+Of course, a good model aims to have a very high rate of true positive and true negative. From this point of view, to evaluate the goodness of a model, we can use \emph{precision} and \emph{recall}. Precision evaluate the ability of a model to classify relevant results correctly 
 \begin{equation}
     \textrm{precision} = \frac{\textrm{TP}}{\textrm{TP}+\textrm{FP}}
 \end{equation}
