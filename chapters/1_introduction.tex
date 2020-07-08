@@ -3,19 +3,19 @@
 The aim of this work is to test whether multi-task deep learning (Section~\ref{sec:MTLsection}) performs better than current state-of-art
 machine learning approaches (in particular single task neural networks, Section~\ref{sec:singletaskNN}) in the classification of DNA cis-regulatory regions (CRRs). 
 
-The development and functioning of the different types of cells lines of human body require a precise spatial-temporal expression of the thousand of genes in the genome. The cell achieve this fundamental task by regulating the rate of transcription of its genes, this mechanism is often called transcriptions regulation. 
-RNA polymerase II enzyme produce the transcript of a protein-coding gene, originated from the transcription start site (TSS). This enzyme needs other elements, called general transcription factors (GTF), to recognize the TSS. In this context the main players involved could categorized in two group: trans-acting factors and cis-acting elements (CRR). The former are not part of DNA and can operate as gene activators or as gene repressors, the latter instead are regions along DNA \cite{NarlikarRegulaotryelements}. In this works, we primarily focus on the seconds group: the cis-regulatory regions.
+The development and functioning of the different types of cells lines of the human body require a precise spatial-temporal expression of the thousand of genes in the genome. The cell achieves this fundamental task by regulating the rate of transcription of its genes. This mechanism is often called transcriptions regulation. 
+RNA polymerase II enzyme produce the transcript of a protein-coding gene, originated from the transcription start site (TSS). This enzyme needs other elements, called general transcription factors (GTF), to recognize the TSS. In this context, the main players involved could be categorized into two groups: trans-acting factors and cis-acting elements (CRR). The former is not part of DNA and can operate as gene activators or as gene repressors. The latter instead are regions along DNA \cite{NarlikarRegulaotryelements}. In this works, we primarily focus on the second group: the cis-regulatory regions.
 
-Basically, CRR are non-coding DNA sections which
+Basically, CRRs are non-coding DNA sections which
 regulate the transcription of the genes. 
-DNA cis-regulatory regions could be divided in promoters, enhancers, silencers and insulators. These elements cooperate to govern a coordinated expression pattern of the gene.  
+DNA cis-regulatory regions could be divided into promoters, enhancers, silencers and insulators. These elements cooperate to govern a coordinated expression pattern of the gene.  
 \emph{Promoters} are 100–1000 base pairs (bp) long DNA sequences
 usually located very close to the beginning of the transcription initiation site. They define where the RNA polymerase should start the transcription of a gene. 
-\emph{Enhancers} are 50 to 1500 bp DNA sequences that, when bound to special proteins (Transcription Factors or TF), augment the transcription of the associated gene. Enhancers are often found at greater distance from TSS.
-\emph{Silencers} are regulatory regions that act as repressors on target gene. They could be present within an enhancers or independently. 
-Finally, \emph{insulators} are regions that stop the spreading of activating or repressing transcriptional activity from a locus to another. In this works the attention is focused on distinguish enhancers and promoters \cite{NarlikarRegulaotryelements}. 
+\emph{Enhancers} are 50 to 1500 bp DNA sequences that, when bound to special proteins (Transcription Factors or TF), augment the transcription of the associated gene. Enhancers are often found at a greater distance from TSS respect promoters.
+\emph{Silencers} are regulatory regions that act as repressors on the target gene. They could be present within an enhancer or independently. 
+Finally, \emph{insulators} are regions that stop the spreading of activating or repressing transcriptional activity from a locus to another. In this works, the attention is focused on distinguishing enhancers and promoters \cite{NarlikarRegulaotryelements}. 
 
-Despite mutations in regulatory regions are considered less likely to have a phenotypic impact, recently the number of recorded cases of non-coding mutations linked to human disease are increased.
+Despite the fact that mutations in regulatory regions are considered less likely to have a phenotypic impact, recently, the number of recorded cases of non-coding mutations linked to human diseases is increased.
 Thus, identifying these regions across
 human DNA is became a fundamental step to understand the impact of
 genetic variation on phenotype. 

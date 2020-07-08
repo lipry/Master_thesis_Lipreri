@@ -1,7 +1,7 @@
 \section{Epigenetic Data} \label{sec:epigenomic_data}
 
 In order to train and compare our single-tasks and multi-tasks neural networks explained in Chapter~\ref{cap:methods} we built a dataset of epigenetic data. We gathered the epigenetic features data from
-ENCODE \cite{ENCODE_data} and the enhancers and promoters labels from FANTOM \cite{FANTOM_data}. The data are downloaded using a python library called \verb|epigenomic_dataset|\footnote{Github: \url{https://github.com/LucaCappelletti94/epigenomic_dataset}}. Using this library is possible to build a custom pipeline that wrap the ENCODE project API. 
+ENCODE \cite{ENCODE_data} and the enhancers and promoters labels from FANTOM \cite{FANTOM_data}. The data are downloaded using a python library called \verb|epigenomic_dataset|\footnote{Github: \url{https://github.com/LucaCappelletti94/epigenomic_dataset}}. Using this library is possible to build a custom pipeline that wraps the ENCODE project API. 
 
 Formally we can define our data as follow: 
 \begin{itemize}
@@ -147,7 +147,7 @@ The process just described is applied both using the optimal number of features 
         \caption{MCF7}
         \label{fig:MCF7_n_feat}
     \end{subfigure}
-    \caption{Accuracy vs Number of Features plots for every $\ell in L$}\label{fig:feats_plot}
+    \caption{F1-score vs Number of Features plots for every $\ell \in L$}\label{fig:feats_plot}
 \end{figure}
 
 \begin{figure}[!htb]
@@ -191,7 +191,7 @@ The process just described is applied both using the optimal number of features 
         \caption{MCF7}
         \label{fig:MCF7_n_feat}
     \end{subfigure}
-    \caption{Accuracy vs Number of Features plots for every $\ell in L$}\label{fig:feats_plot_accuracy}
+    \caption{Accuracy vs Number of Features plots for every $\ell \in L$}\label{fig:feats_plot_accuracy}
 \end{figure}
 
 \section{t-SNE Decomposition}

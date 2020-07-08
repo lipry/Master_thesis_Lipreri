@@ -70,22 +70,22 @@ Usually, to optimizing the predictions of a given task, a single model is
 tuned and trained. In this way, good results can be achieved but, any
 information that might come from related tasks are lost. MTL methods take
 the signal from related considered tasks by sharing the
-representation between them. The typical settings is to learning multiple
-task simultaneously using a shared representation, what is learned by one
+representation between them. The typical setting is to learning simultaneously multiple
+tasks using a shared representation, what is learned by one
 task can be helpful for the other tasks and vice versa \cite{Caruana97}. 
 The mechanism underlining MTL, firstly described by \cite{Caruana97}, are reported in this Section.
 There are many motivation behind MTL: from a biological point of view is
-inspired by the way human brain learns (the knowledge of tasks can help us
+inspired by the way the human brain learns (the knowledge of tasks can help us
 learning other tasks), from a pure machine learning perspective
 can be seen as a form of regularization in which the inductive bias is
 introduced by the auxiliary tasks \cite{Ruder2017}. 
 
-Multi-tasks learning introduce an \emph{implicit data augmentation}, that is, increase the sample size used to train the model. Furthermore, defining A and B as two related tasks with noise, learning A and B jointly gives a better representation due to the noise patterns averaging.
-In addition, MTL permits the model to \emph{focus attention} on the feature that really matter. This behaviour, that could be considered as an implicit feature selection, is possible because other tasks could give additional evidence about relevance (or irrelevance) of features. 
+Multi-tasks learning introduces an \emph{implicit data augmentation}, that is, increase the sample size used to train the model. Furthermore, defining A and B as two related tasks with noise, learning A and B jointly gives a better representation due to the noise patterns averaging.
+Also, MTL permits the model to \emph{focus attention} on the feature that really matters. This behaviour, considered as an implicit feature selection, is possible because other tasks could give additional evidence about relevance (or irrelevance) of features. 
 
 MTL introduces the concept of \emph{eavesdropping}. The idea, introduced using hints by \cite{AbuMostafa1990}, is that we can allow the model to learn a features subset G, that is harder to learn from A, using another task B. 
 
-In many cases, MTL permits to easily generalize to new future tasks. In fact, an hypothesis space that perform well for a large number of tasks will probably perform well for new tasks from the same environments \cite{Ruder2017}. 
+In many cases, MTL permits to generalize easily to new future tasks. In fact, an hypothesis space that performs well for a large number of tasks will probably perform well for new tasks from the same environments \cite{Ruder2017}. 
 
 While in the past MTL
 was more used in non-neural models, recently many deep learning algorithms exploiting this approach were developed. We will briefly describe the two main ideas that have been pervasive in non-neural MTL models and then we will explain the neural networks approach.
@@ -99,15 +99,15 @@ a_t = \begin{bmatrix}
            a_{d, t}
          \end{bmatrix}^\mathsf{T}
 \end{equation}
-using these vectors we can form a matrix $A \in \mathbf{R}^{d \times T}$ stacking it columns by columns. Note that the rows of the matrix are the features considered while the columns are the models. Many works aimed to generalize the concept of regularization over the entire matrix $A$. For instance calculating $\ell_q$ norm for every rows and then compute $\ell_1$ norm over the obtained vector \cite{Ruder2017, Zhang2008, ArgyriouPontil2008, YuanLin2006}.  
+using these vectors, we can form a matrix $A \in \mathbf{R}^{d \times T}$ stacking it columns by columns. Note that the rows of the matrix are the features considered while the columns are the models. Many works aimed to generalize the concept of regularization over the entire matrix $A$. For instance, calculating $\ell_q$ norm for every row and then compute $\ell_1$ norm over the obtained vector \cite{Ruder2017, Zhang2008, ArgyriouPontil2008, YuanLin2006}.  
 
-The models just described assume a strong relation between the tasks. However, in a real worlds scenario, some tasks could not be closely related each others. Sharing information between unrelated tasks could lead the negatively the performance of the model, this phenomenon is often called \emph{negative transfer}. 
-Many methods were introduced to overcome negative transfer. \cite{Evgeniou2005}, for instance, impose a clustering constraint that penalizing the norm and and the variance of our task columns vector.
+The models just described assumes a strong relation between the tasks. However, in a real worlds scenario, some tasks could not be closely related to each other. Sharing information between unrelated tasks could lead the negatively the performance of the model; this phenomenon is often called \emph{negative transfer}. 
+Many methods were introduced to overcome negative transfer. \cite{Evgeniou2005}, for instance, impose a clustering constraint that penalizing the norm and the variance of our task columns vector.
 
 In this context, the two
 most used ways to perform multi-task learning are called \emph{soft
 parameters sharing} and \emph{hard parameter sharing}. In the former
-every task has his own set of parameters, the distance between this
+every task has his own set of parameters, the distance between these
 parameters is regularized in order to become similar and represent
 multiple tasks. Notable examples are \cite{duong-etal-2015-low} and
 \cite{yang2016trace}. In the latter instead, a fixed number of hidden
